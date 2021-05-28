@@ -1,0 +1,15 @@
+$bg-color: lightblue;
+
+.todoForm {
+  background-color: $bg-color;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 0px;
+}
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+}

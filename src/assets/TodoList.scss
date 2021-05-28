@@ -1,0 +1,13 @@
+$bg-color: lightblue;
+
+.todoList {
+  background-color: $bg-color;
+  padding: 10px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+}
+
+.todos {
+  display: flex;
+  justify-content: center;
+}

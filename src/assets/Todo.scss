@@ -1,0 +1,27 @@
+$bg-color: white;
+
+.todo {
+  background-color: $bg-color;
+  width: 520px;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 10px 0px;
+}
+
+.todoTop,
+.icons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icons {
+  width: 70px;
+}
+.icon {
+  cursor: pointer;
+  font-size: 19px;
+}
+
+.todo > p {
+  margin-top: 5px;
+}

@@ -1,0 +1,16 @@
+$bg-color: lightblue;
+
+.mainNav {
+  height: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0px 30px;
+  background-color: $bg-color;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+.mainNav > h1 {
+  font-size: 30px;
+}
