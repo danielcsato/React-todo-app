@@ -22,10 +22,17 @@ $bg-color: white;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-grow: 1;
+  flex-grow: 0.5;
+  font-size: 20px;
+  height: 100%;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  cursor: pointer;
+  background-color: #50d0c0;
 }
 .title {
   flex-grow: 8;
+  padding-left: 10px;
 }
 .icons {
   display: flex;
