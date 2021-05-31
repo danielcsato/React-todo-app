@@ -1,4 +1,4 @@
-$bg-color: lightblue;
+$bg-color: rgb(202, 202, 202);
 
 .todoName {
   width: 200px;
@@ -6,17 +6,41 @@ $bg-color: lightblue;
   padding: 5px;
   border: none;
   outline: none;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
+  transition-duration: 700ms;
+
+  &:focus {
+    transition-duration: 700ms;
+    transform: scale(1.05);
+  }
 }
 .todoForm {
-  background-color: $bg-color;
-  height: 80px;
+  margin: 20px auto;
+  width: 400px;
+  border: none;
+
+  height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 5px 0px;
+  border-top: 1px solid black;
 }
-.buttons {
-  display: flex;
-  justify-content: space-around;
-  padding: 20px;
+
+.submitBtn {
+  width: 80px;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 5px;
+  background-color: rgb(255, 51, 102);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
+  transition-duration: 700ms;
+
+  &:hover {
+    transition-duration: 700ms;
+    transform: scale(1.1);
+  }
 }

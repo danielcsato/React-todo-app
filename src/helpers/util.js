@@ -1,12 +1,10 @@
-const BASE_URL = 'http://localhost:8080';
-
 const getTime = () => {
-  var today = new Date();
-  var date =
+  const today = new Date();
+  const date =
     today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-  var time =
+  const time =
     today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
   return date + ' ' + time;
 };
 
-export { BASE_URL, getTime };
+export { getTime };

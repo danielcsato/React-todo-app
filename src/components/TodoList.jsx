@@ -1,53 +1,33 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import '../assets/TodoList.scss';
 import Todo from './Todo';
-import axios from 'axios';
 
-import { BASE_URL } from '../helpers/util';
+import { getTodos } from '../helpers/api';
 import { TodoContext } from '../context/context';
 
 const TodoList = () => {
-  // eslint-disable-next-line
-  const [active, setActive] = useState(true);
-  const { setTodos, todos } = useContext(TodoContext);
-
-  const getTodos = () => {
-    axios
-      .get(`${BASE_URL}/api/todo`)
-      .then((res) => setTodos(res.data), console.log('TODOS DOWNLOADED'))
-      .catch((err) => console.log('REQUEST FAILED', err));
-  };
+  const { todos, active, setTodos } = useContext(TodoContext);
 
   // TODO refresh page on new todo added
-  useEffect(() => getTodos(), []);
+  useEffect(() => getTodos(setTodos), []);
 
   return (
     <>
-      {todos.length !== 0 ? (
-        <div className='todoList'>
-          <div className='buttons'>
-            <button onClick={() => setActive(true)}>Active</button>
-            <button onClick={() => setActive(false)}>Completed</button>
-          </div>
-          <div className='todos'>
-            <ul>
-              {todos
-                .filter((t) => t.isDone !== active)
-                .map((t) => {
-                  return (
-                    <li key={t.id}>
-                      <Todo name={t.title} id={t.id} />
-                    </li>
-                  );
-                })}
-            </ul>
-          </div>
+      <div className="todoList">
+        <div className="todos">
+          <ul>
+            {todos
+              .filter((todo) => todo.isDone !== active)
+              .map(({ id, title }) => {
+                return (
+                  <li key={id}>
+                    <Todo name={title} id={id} />
+                  </li>
+                );
+              })}
+          </ul>
         </div>
-      ) : (
-        <div className='todoList'>
-          <h3>No todo left</h3>
-        </div>
-      )}
+      </div>
     </>
   );
 };

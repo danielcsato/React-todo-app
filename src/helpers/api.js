@@ -1,8 +1,7 @@
 import axios from 'axios';
-import { BASE_URL, getTime } from './util';
-// eslint-disable-next-line
-import { v4 as uuidv4 } from 'uuid';
+import { getTime } from './util';
 
+const BASE_URL = 'http://localhost:8080';
 function randomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -22,10 +21,10 @@ export const createTodo = (name) => {
     .catch((err) => console.log('REQUEST FAILED', err));
 };
 
-export const getTodos = () => {
+export const getTodos = (setTodos) => {
   axios
     .get(`${BASE_URL}/api/todo`)
-    .then((res) => res.data, console.log('TODOS DOWNLOADED'))
+    .then((res) => setTodos(res.data), console.log('TODOS DOWNLOADED'))
     .catch((err) => console.log('REQUEST FAILED', err));
 };
 
@@ -55,3 +54,5 @@ export const deleteTodo = (id) => {
     .then((res) => console.log('TODO DELETED', res))
     .catch((err) => console.log('REQUEST FAILED', err));
 };
+
+export { BASE_URL };

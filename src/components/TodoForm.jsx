@@ -20,17 +20,19 @@ const TodoForm = () => {
   };
 
   return (
-    <div className='todoForm'>
+    <div className="todoForm">
       <form onSubmit={handleSubmit}>
         <input
-          className='todoName'
+          className="todoName"
           required
-          type='text'
-          placeholder='Todo name'
+          type="text"
+          placeholder="Todo name"
           value={todoName}
           onChange={(e) => setTodoName(e.target.value)}
         />
-        <button type='submit'>Add Todo</button>
+        <button className="submitBtn" type="submit">
+          Add Todo
+        </button>
       </form>
     </div>
   );

@@ -5,12 +5,13 @@ import TodoForm from './components/TodoForm';
 import TodoList from './components/TodoList';
 
 function App() {
-
   return (
     <TodoContextProvider>
-      <Nav />
-      <TodoList />
-      <TodoForm />
+      <div className="main">
+        <Nav />
+        <TodoList />
+        <TodoForm />
+      </div>
     </TodoContextProvider>
   );
 }
