@@ -9,11 +9,10 @@ const TodoForm = () => {
   const { todos } = useContext(TodoContext);
 
   const handleSubmit = (e) => {
+    e.preventDefault();
     if (todos.some((todo) => todo.title === todoName)) {
-      e.preventDefault();
       alert('Name already exists');
     } else {
-      e.preventDefault();
       createTodo(todoName);
       setTodoName('');
     }

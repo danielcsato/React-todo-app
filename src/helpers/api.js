@@ -2,9 +2,10 @@ import axios from 'axios';
 import { getTime } from './util';
 
 const BASE_URL = 'http://localhost:8080';
-function randomInteger(min, max) {
+
+const randomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 export const createTodo = (name) => {
   const body = {

@@ -8,13 +8,13 @@ const Todo = ({ name, id }) => {
   return (
     <div className="todoMain">
       <div className="checkbox">
-        <MdDone className="icon" />
+        <MdDone className="done" />
       </div>
-      <div className="title">
+      <div className="title" id="title">
         <h5>{name}</h5>
       </div>
       <div className="icons" onClick={() => deleteTodo(id)}>
-        <FaTrashAlt className="icon" />
+        <FaTrashAlt className="trash" />
       </div>
     </div>
   );

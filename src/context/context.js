@@ -9,7 +9,14 @@ const TodoContextProvider = (props) => {
 
   return (
     <TodoContext.Provider
-      value={{ todos, setTodos, addNew, setAddNew, active, setActive }}
+      value={{
+        todos,
+        setTodos,
+        addNew,
+        setAddNew,
+        active,
+        setActive,
+      }}
     >
       {props.children}
     </TodoContext.Provider>

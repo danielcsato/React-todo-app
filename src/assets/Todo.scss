@@ -2,7 +2,7 @@ $bg-color: white;
 
 .todoMain {
   background-color: $bg-color;
-  width: 520px;
+  width: 430px;
   height: 40px;
   margin: 10px 0px;
   display: flex;
@@ -10,10 +10,9 @@ $bg-color: white;
   border: none;
   border-radius: 10px;
   box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
-  transition-duration: 700ms;
 
   &:hover {
-    transition-duration: 700ms;
+    transition-duration: 1300ms;
     transform: scale(1.05);
   }
 }
@@ -25,10 +24,8 @@ $bg-color: white;
   flex-grow: 0.5;
   font-size: 20px;
   height: 100%;
-  border-bottom-left-radius: 10px;
-  border-top-left-radius: 10px;
   cursor: pointer;
-  background-color: #50d0c0;
+  color: #50d2c1;
 }
 .title {
   flex-grow: 8;
@@ -41,8 +38,6 @@ $bg-color: white;
   flex-grow: 0.5;
   font-size: 20px;
   height: 100%;
-  border-bottom-right-radius: 10px;
-  border-top-right-radius: 10px;
   cursor: pointer;
-  background-color: rgb(255, 51, 102);
+  color: rgb(255, 51, 102);
 }

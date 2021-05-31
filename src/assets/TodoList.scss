@@ -9,6 +9,25 @@ $bg-color: white;
   overflow-x: hidden;
 }
 
+.todoList::-webkit-scrollbar {
+  width: 7px;
+}
+
+.todoList::-webkit-scrollbar-track {
+  background: rgb(233, 231, 232);
+  border-radius: 5px;
+}
+
+.todoList::-webkit-scrollbar-thumb {
+  background: rgb(175, 170, 170);
+  border-radius: 5px;
+}
+
+.todoList::-webkit-scrollbar-thumb:hover {
+  background: #8b8787;
+  border-radius: 10px;
+}
+
 .todos {
   display: flex;
   justify-content: center;
