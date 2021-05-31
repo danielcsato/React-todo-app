@@ -1,40 +1,42 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import '../assets/TodoList.scss';
 import Todo from './Todo';
+import axios from 'axios';
+
+import { BASE_URL } from '../helpers/util';
 import { TodoContext } from '../context/context';
-import { FaBlackberry } from 'react-icons/fa';
 
 const TodoList = () => {
+  // eslint-disable-next-line
   const [active, setActive] = useState(true);
+  const { setTodos, todos } = useContext(TodoContext);
 
-  const handleFilter = (filter) => {
-    setActive(filter);
+  const getTodos = () => {
+    axios
+      .get(`${BASE_URL}/api/todo`)
+      .then((res) => setTodos(res.data), console.log('TODOS DOWNLOADED'))
+      .catch((err) => console.log('REQUEST FAILED', err));
   };
 
-  const { handleDelete, handleComplete, todos } = useContext(TodoContext);
+  // TODO refresh page on new todo added
+  useEffect(() => getTodos(), []);
+
   return (
     <>
       {todos.length !== 0 ? (
         <div className='todoList'>
           <div className='buttons'>
-            <button onClick={() => handleFilter(true)}>Active</button>
-            <button onClick={() => handleFilter(false)}>Completed</button>
+            <button onClick={() => setActive(true)}>Active</button>
+            <button onClick={() => setActive(false)}>Completed</button>
           </div>
           <div className='todos'>
             <ul>
               {todos
-                .filter((t) => t.isCompleted === !active)
+                .filter((t) => t.isDone !== active)
                 .map((t) => {
                   return (
                     <li key={t.id}>
-                      <Todo
-                        name={t.name}
-                        id={t.id}
-                        handleComplete={handleComplete}
-                        handleDelete={handleDelete}
-                        isCompleted={t.isCompleted}
-                        description={t.description}
-                      />
+                      <Todo name={t.title} id={t.id} />
                     </li>
                   );
                 })}
@@ -42,7 +44,9 @@ const TodoList = () => {
           </div>
         </div>
       ) : (
-        <h3>No todo left</h3>
+        <div className='todoList'>
+          <h3>No todo left</h3>
+        </div>
       )}
     </>
   );

@@ -1,5 +1,12 @@
 $bg-color: lightblue;
 
+.todoName {
+  width: 200px;
+  margin-right: 1rem;
+  padding: 5px;
+  border: none;
+  outline: none;
+}
 .todoForm {
   background-color: $bg-color;
   height: 80px;
