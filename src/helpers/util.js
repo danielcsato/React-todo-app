@@ -1,3 +1,4 @@
+//gives back current time in yyyy-mm-dd hh-mm-ss format
 const getTime = () => {
   const today = new Date();
   const date =

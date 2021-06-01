@@ -3,6 +3,7 @@ import { getTime } from './util';
 
 const BASE_URL = 'http://localhost:8080';
 
+//using this to create a random id until backend fix, give it two number param
 const randomInteger = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
@@ -49,10 +50,13 @@ export const updateTodo = (id, title, isDone) => {
     .then((res) => console.log('TODO UPDATED', res))
     .catch((err) => console.log('REQUEST FAILED', err));
 };
-export const deleteTodo = (id) => {
+export const deleteTodo = (id, state) => {
   axios
     .delete(`${BASE_URL}/api/todo/${id}`)
-    .then((res) => console.log('TODO DELETED', res))
+    .then((res) => {
+      console.log('TODO DELETED', res);
+      state(false);
+    })
     .catch((err) => console.log('REQUEST FAILED', err));
 };
 

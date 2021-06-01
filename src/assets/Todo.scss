@@ -1,9 +1,14 @@
 $bg-color: white;
 
+.todo {
+  z-index: 1;
+}
+
 .todoMain {
   background-color: $bg-color;
   width: 430px;
-  height: 40px;
+  min-height: 50px;
+  height: 100%;
   margin: 10px 0px;
   display: flex;
   align-items: center;
@@ -28,8 +33,10 @@ $bg-color: white;
   color: #50d2c1;
 }
 .title {
-  flex-grow: 8;
-  padding-left: 10px;
+  flex-grow: 6;
+  padding: 5px 10px;
+  width: 200px;
+  word-wrap: break-word;
 }
 .icons {
   display: flex;
@@ -40,4 +47,79 @@ $bg-color: white;
   height: 100%;
   cursor: pointer;
   color: rgb(255, 51, 102);
+}
+
+.modal {
+  z-index: 1000;
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
+  width: 230px;
+  height: 115px;
+}
+
+.overlay {
+  z-index: 1000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalTitle {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.modalTitle > h5 {
+  font-size: 20px;
+  color: rgb(87, 86, 86);
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.modalDelete {
+  width: 80px;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 5px;
+  background-color: rgb(255, 51, 102);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
+  transition-duration: 700ms;
+
+  &:hover {
+    transition-duration: 700ms;
+    transform: scale(1.1);
+  }
+}
+
+.modalKeep {
+  width: 80px;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 5px;
+  background-color: #50d2c1;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
+  transition-duration: 700ms;
+
+  &:hover {
+    transition-duration: 700ms;
+    transform: scale(1.1);
+  }
 }

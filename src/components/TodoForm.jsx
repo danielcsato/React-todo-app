@@ -8,6 +8,7 @@ const TodoForm = () => {
   const [todoName, setTodoName] = useState('');
   const { todos } = useContext(TodoContext);
 
+  //this creates a new todo, it will throw an error if todoName value already exists in the database
   const handleSubmit = (e) => {
     e.preventDefault();
     if (todos.some((todo) => todo.title === todoName)) {

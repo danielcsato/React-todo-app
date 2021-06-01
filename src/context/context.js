@@ -3,8 +3,9 @@ import React, { createContext, useState } from 'react';
 export const TodoContext = createContext();
 
 const TodoContextProvider = (props) => {
+  //stores every todo
   const [todos, setTodos] = useState([]);
-  const [addNew, setAddNew] = useState(false);
+  //filter state, true means show every todo
   const [active, setActive] = useState(true);
 
   return (
@@ -12,8 +13,6 @@ const TodoContextProvider = (props) => {
       value={{
         todos,
         setTodos,
-        addNew,
-        setAddNew,
         active,
         setActive,
       }}
