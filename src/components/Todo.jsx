@@ -41,7 +41,7 @@ const Todo = ({ name, id }) => {
           <MdDone className="done" />
         </div>
         <div className="title" id="title">
-          <h5>{name}</h5>
+          <p>{name}</p>
         </div>
         <div className="icons" onClick={() => setIsOpen(true)}>
           <FaTrashAlt className="trash" />

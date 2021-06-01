@@ -23,7 +23,7 @@ export const createTodo = (name) => {
     .catch((err) => console.log('REQUEST FAILED', err));
 };
 
-export const getTodos = (setTodos) => {
+export const getTodos = async (setTodos) => {
   axios
     .get(`${BASE_URL}/api/todo`)
     .then((res) => setTodos(res.data), console.log('TODOS DOWNLOADED'))

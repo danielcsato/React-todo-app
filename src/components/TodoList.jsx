@@ -9,8 +9,9 @@ const TodoList = () => {
   const { todos, active, setTodos } = useContext(TodoContext);
 
   // TODO refresh page on new todo added
-  useEffect(() => getTodos(setTodos), []);
-
+  useEffect(() => {
+    getTodos(setTodos);
+  }, []);
   return (
     <>
       <div className="todoList">

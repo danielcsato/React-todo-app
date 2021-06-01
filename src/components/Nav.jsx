@@ -6,11 +6,11 @@ const Nav = () => {
   const { todos, active, setActive } = useContext(TodoContext);
   return (
     <nav className="mainNav">
-      <h2>
+      <p>
         {todos.length === 0
           ? 'No todos left'
           : `You have ${todos.length} Todos`}
-      </h2>
+      </p>
       <div className="buttons">
         <button
           className={active ? 'buttonInactive' : 'buttonActive'}
