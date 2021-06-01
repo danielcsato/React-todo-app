@@ -60,4 +60,4 @@ export const deleteTodo = (id, state) => {
     .catch((err) => console.log('REQUEST FAILED', err));
 };
 
-export { BASE_URL };
+export { BASE_URL, randomInteger };
