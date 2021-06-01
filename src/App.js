@@ -1,10 +1,18 @@
-import './App.css';
+import './assets/App.scss';
+import TodoContextProvider from './context/context';
+import Nav from './components/Nav';
+import TodoForm from './components/TodoForm';
+import TodoList from './components/TodoList';
 
 function App() {
   return (
-    <>
-      <h1>Hello world</h1>
-    </>
+    <TodoContextProvider>
+      <div className="main">
+        <Nav />
+        <TodoList />
+        <TodoForm />
+      </div>
+    </TodoContextProvider>
   );
 }
 
