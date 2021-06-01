@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import '../assets/Todo.scss';
 
 import { FaTrashAlt } from 'react-icons/fa';
