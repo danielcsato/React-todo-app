@@ -15,6 +15,7 @@ $bg-color: white;
   border: none;
   border-radius: 10px;
   box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
+  transition-duration: 500ms;
 
   &:hover {
     transition-duration: 1300ms;
