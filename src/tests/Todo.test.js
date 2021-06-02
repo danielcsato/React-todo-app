@@ -1,14 +1,22 @@
+// setup file
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+
+configure({ adapter: new Adapter() });
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
+
 import Todo from '../components/Todo';
 
-it('Todo is rendered', () => {
-  const tree = renderer.create(<Todo />).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+describe('Todo.jsx', () => {
+  it('Todo is rendered', () => {
+    const wrapper = shallow(<Todo />);
+    expect(wrapper).toMatchSnapshot();
+  });
 
-it('Todo name is rendered', () => {
-  const todo = ['Task'];
-  const tree = renderer.create(<Todo name={todo} />).toJSON();
-  expect(tree).toMatchSnapshot();
+  it('Todo name is rendered', () => {
+    const todo = ['Task'];
+    const wrapper = shallow(<Todo name={todo} />);
+    expect(wrapper).toMatchSnapshot();
+  });
 });
