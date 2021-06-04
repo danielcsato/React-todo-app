@@ -52,20 +52,15 @@ $bg-color: rgb(202, 202, 202);
     transition-duration: 700ms;
     transform: scale(1.1);
   }
-}
-.submitBtnDisabled {
-  width: 80px;
-  padding: 5px;
-  border-radius: 10px;
-  margin: 5px;
-  background-color: rgb(123, 120, 121);
-  cursor: pointer;
-  border: none;
-  box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
-  transition-duration: 700ms;
-
-  &:hover {
+  &:disabled {
+    width: 80px;
+    padding: 5px;
+    border-radius: 10px;
+    margin: 5px;
+    background-color: rgb(123, 120, 121);
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
     transition-duration: 700ms;
-    transform: scale(1.1);
   }
 }

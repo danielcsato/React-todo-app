@@ -9,30 +9,36 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
   const [todoName, setTodoName] = useState('');
   const { todos, setTodos } = useContext(TodoContext);
 
+  const checkName = () => {
+    if (todos.some((todo) => todo.title === todoName)) {
+      return true;
+    }
+    // TODO check subtodos title aswell
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (todos.some((todo) => todo.title === todoName)) {
+    if (checkName()) {
       alert('Name already exists');
     } else {
-      setTodos((t) => [
-        ...t,
+      const newTodos = [
+        ...todos,
         {
           id: uuidv4(),
           title: todoName,
           isDone: false,
           createTime: getTime(),
-          parentId: null,
           subTasks: [],
         },
-      ]);
+      ];
+      setTodos(newTodos);
       setTodoName('');
     }
   };
 
   const handleSubtask = (e) => {
     e.preventDefault();
-    const checkName = todos.some((todo) => todo.title === todoName);
-    if (checkName) {
+    if (checkName()) {
       alert('Name already exists');
     } else {
       subTasks.push({
@@ -43,7 +49,7 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
         parentId: parent,
       });
       setTodoName('');
-      setTodos((t) => [...t]);
+      setTodos([...todos]);
     }
   };
   return (
@@ -59,9 +65,7 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
         />
         {parentForm && (
           <button
-            className={
-              todoName.length === 0 ? 'submitBtnDisabled' : 'submitBtn'
-            }
+            className="submitBtn"
             type="submit"
             disabled={todoName.length === 0}
           >

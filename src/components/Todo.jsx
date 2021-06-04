@@ -61,7 +61,7 @@ const Todo = ({
           </li>
         );
       })}
-      {parentId === null ? '' : <TodoForm parent={id} subTasks={subTasks} />}
+      <TodoForm parent={id} subTasks={subTasks} />
     </div>
   );
 };
