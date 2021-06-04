@@ -10,7 +10,7 @@ function App() {
       <div className="main">
         <Nav />
         <TodoList />
-        <TodoForm />
+        <TodoForm parentForm={true} />
       </div>
     </TodoContextProvider>
   );
