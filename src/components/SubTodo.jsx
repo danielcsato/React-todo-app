@@ -18,31 +18,36 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
     );
   };
 
+  // TODO FIX THIS
   const handleComplete = (id, parentId) => {
-    const todo = todos.find((t) => t.id === parentId);
-    const newArray = todo.subTasks.map((t) =>
-      t.id === id ? { ...t, isDone: !t.isDone } : t
-    );
-    console.log(parentId);
-    setTodos(
-      todos.map((todo) =>
-        todo.id === parentId ? { ...todo, subTasks: newArray } : todo
-      )
-    );
-  };
-  const checkEveryDone = (parentId) => {
-    const todo = todos.find((t) => t.id === parentId);
-    const subtodos = todo.subTasks.every((t) => t.isDone === true);
-    if (subtodos) {
-      setTodos(
-        todos.map((todo) =>
-          todo.id === parentId ? { ...todo, isDone: true } : todo
-        )
+    const todo = todos.find((todo) => todo.id === parentId);
+    const subTodos = todo.subTasks.every((todo) => todo.isDone === true);
+    //sets the subtodos isDone and sets parent todos isDone to false if the subtodos arent completed
+    if (!subTodos) {
+      const newSubs = todo.subTasks.map((todo) =>
+        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
       );
+      const newArray = todos.map((todo) =>
+        todo.id === parentId
+          ? { ...todo, isDone: true, subTasks: newSubs }
+          : todo
+      );
+      setTodos(newArray);
+    }
+
+    //sets the subtodos isDone and sets parent todo to completed if every other subtodo is done aswell
+    else if (subTodos) {
+      const newSubs = todo.subTasks.map((todo) =>
+        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+      );
+      const newArray = todos.map((todo) =>
+        todo.id === parentId
+          ? { ...todo, isDone: false, subTasks: newSubs }
+          : todo
+      );
+      setTodos(newArray);
     }
   };
-
-  useEffect(() => {}, []);
 
   return (
     <div className="todoHolder">
