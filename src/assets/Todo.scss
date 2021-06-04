@@ -5,7 +5,28 @@
 .todoMain {
   background-color: white;
   width: 430px;
-  min-height: 50px;
+  min-height: 15px;
+  height: 100%;
+  cursor: pointer;
+  margin: 10px 0px;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
+  transition-duration: 500ms;
+
+  &:hover {
+    transition-duration: 1300ms;
+    transform: scale(1.05);
+  }
+}
+
+.todoMainDone {
+  background-color: #50d2c1;
+  width: 430px;
+  cursor: pointer;
+  min-height: 15px;
   height: 100%;
   margin: 10px 0px;
   display: flex;
@@ -30,6 +51,16 @@
   height: 100%;
   cursor: pointer;
   color: #50d2c1;
+}
+.checkboxDone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 0.5;
+  font-size: 20px;
+  height: 100%;
+  cursor: pointer;
+  color: rgb(255, 51, 102);
 }
 .title {
   flex-grow: 6;
@@ -122,4 +153,49 @@
     transition-duration: 700ms;
     transform: scale(1.1);
   }
+}
+
+.subtodoMain {
+  background-color: white;
+  width: 400px;
+  min-height: 15px;
+  cursor: pointer;
+  height: 100%;
+  margin: 10px 0px;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
+  transition-duration: 500ms;
+
+  &:hover {
+    transition-duration: 1300ms;
+    transform: scale(1.05);
+  }
+}
+
+.subtodoMainDone {
+  background-color: #50d2c1;
+  width: 400px;
+  min-height: 15px;
+  height: 100%;
+  margin: 10px 0px;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
+  transition-duration: 500ms;
+
+  &:hover {
+    transition-duration: 1300ms;
+    transform: scale(1.05);
+  }
+}
+
+.todoHolder {
+  display: flex;
+  justify-content: flex-end;
 }

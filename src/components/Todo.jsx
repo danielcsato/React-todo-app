@@ -1,33 +1,24 @@
 import React, { useState } from 'react';
+
 import '../assets/Todo.scss';
-
 import { FaTrashAlt } from 'react-icons/fa';
-import { MdDone } from 'react-icons/md';
-import { deleteTodo } from '../helpers/api';
+import { GrCheckbox, GrCheckboxSelected } from 'react-icons/gr';
 
-const Modal = ({ setIsOpen, deleteTodo }) => {
-  return (
-    <>
-      <div className="overlay" onClick={() => setIsOpen(false)} />
-      <div className="modal">
-        <div className="modalTitle">
-          <h5>Are you sure?</h5>
-        </div>
-        <div className="modalButtons">
-          <button className="modalKeep" onClick={() => setIsOpen(false)}>
-            Keep
-          </button>
-          <button className="modalDelete" onClick={deleteTodo}>
-            Delete
-          </button>
-        </div>
-      </div>
-    </>
-  );
-};
+import TodoForm from './TodoForm';
+import SubTodo from './SubTodo';
+import Modal from './Modal';
 
-const Todo = ({ name, id }) => {
+const Todo = ({
+  name,
+  id,
+  handleComplete,
+  deleteTodo,
+  isDone,
+  parentId,
+  subTasks,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div>
       {isOpen && (
@@ -36,17 +27,41 @@ const Todo = ({ name, id }) => {
           deleteTodo={() => deleteTodo(id, setIsOpen)}
         />
       )}
-      <div className="todoMain">
-        <div className="checkbox">
-          <MdDone className="done" />
+      <div className={isDone ? 'todoMainDone' : 'todoMain'}>
+        <div
+          className={isDone ? 'checkboxDone' : 'checkbox'}
+          onClick={() => handleComplete(id)}
+        >
+          {isDone ? (
+            <GrCheckboxSelected className="done" />
+          ) : (
+            <GrCheckbox className="done" />
+          )}
         </div>
-        <div className="title" id="title">
+        <div className="title" id="title" onClick={() => handleComplete(id)}>
           <p>{name}</p>
         </div>
-        <div className="icons" onClick={() => setIsOpen(true)}>
+        <div
+          className="icons"
+          data-test-id="deleteButton"
+          onClick={() => setIsOpen(true)}
+        >
           <FaTrashAlt className="trash" />
         </div>
       </div>
+      {subTasks.map((sub) => {
+        return (
+          <li key={sub.id}>
+            <SubTodo
+              name={sub.title}
+              id={sub.id}
+              isDone={sub.isDone}
+              parentId={sub.parentId}
+            />
+          </li>
+        );
+      })}
+      {parentId === null ? '' : <TodoForm parent={id} subTasks={subTasks} />}
     </div>
   );
 };

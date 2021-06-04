@@ -1,5 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Todo.jsx Todo is rendered 1`] = `ShallowWrapper {}`;
-
-exports[`Todo.jsx Todo name is rendered 1`] = `ShallowWrapper {}`;

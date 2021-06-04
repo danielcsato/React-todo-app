@@ -17,15 +17,24 @@ $bg-color: rgb(202, 202, 202);
   }
 }
 .todoForm {
-  margin: 20px auto;
+  margin: 5px auto;
   width: 400px;
   border: none;
-
   height: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-top: 1px solid black;
+}
+
+.todoFormSub {
+  margin: 0px auto;
+  width: 400px;
+  border: none;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .submitBtn {
@@ -34,6 +43,22 @@ $bg-color: rgb(202, 202, 202);
   border-radius: 10px;
   margin: 5px;
   background-color: rgb(255, 51, 102);
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
+  transition-duration: 700ms;
+
+  &:hover {
+    transition-duration: 700ms;
+    transform: scale(1.1);
+  }
+}
+.submitBtnDisabled {
+  width: 80px;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 5px;
+  background-color: rgb(123, 120, 121);
   cursor: pointer;
   border: none;
   box-shadow: 0 3px 6px rgba(73, 73, 73, 0.459);
