@@ -37,13 +37,11 @@ The todo item should check or uncheck the selection when clicked anywhere on the
 Business logic: 
 1. If the main todo item is clicked and changed to checked then all the sub-todo items should also be checked 
 2. If the main todo item is clicked and changed to unchecked then all the sub-todo items should also be unchecked 
-*If all the sub-todo items are clicked and changed to checked then the main todo item should also be checked 
-*If any of the sub-todo items are clicked and changed to unchecked then the main todo item should be unchecked 
-*If the main todo item is removed then all the sub-todo items should also be removed 
-*If any of the sub-todo items are removed then the main todo should reflect the actual checked state which means: 
-*If the removed sub-todo was unchecked and all the others were checked then the main todo will be checked 
-Otherwise there will be no change in the main todo 
-*If either the todo or sub-todo items are checked then they should differ in color (up to the developer) 
+3. If all the sub-todo items are clicked and changed to checked then the main todo item should also be checked 
+4. If any of the sub-todo items are clicked and changed to unchecked then the main todo item should be unchecked 
+5. If the main todo item is removed then all the sub-todo items should also be removed 
+6. If any of the sub-todo items are removed then the main todo should reflect the actual checked state which means: -- If the removed sub-todo was unchecked and all the others were checked then the main todo will be checked  -- Otherwise there will be no change in the main todo 
+7. If either the todo or sub-todo items are checked then they should differ in color (up to the developer) 
 
 ### 'task 3'
 Sub-todos can be moved between main todos. 
