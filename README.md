@@ -35,9 +35,8 @@ The todo item should check or uncheck the selection when clicked anywhere on the
  
 
 Business logic: 
-
-*If the main todo item is clicked and changed to checked then all the sub-todo items should also be checked 
-*If the main todo item is clicked and changed to unchecked then all the sub-todo items should also be unchecked 
+1. If the main todo item is clicked and changed to checked then all the sub-todo items should also be checked 
+2. If the main todo item is clicked and changed to unchecked then all the sub-todo items should also be unchecked 
 *If all the sub-todo items are clicked and changed to checked then the main todo item should also be checked 
 *If any of the sub-todo items are clicked and changed to unchecked then the main todo item should be unchecked 
 *If the main todo item is removed then all the sub-todo items should also be removed 
