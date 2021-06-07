@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 const Modal = ({ setIsOpen, deleteTodo }) => {
   return (
     <>
@@ -19,11 +17,6 @@ const Modal = ({ setIsOpen, deleteTodo }) => {
       </div>
     </>
   );
-};
-
-Modal.propTypes = {
-  setIsOpen: PropTypes.bool,
-  deleteTodo: PropTypes.func,
 };
 
 export default Modal;

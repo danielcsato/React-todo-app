@@ -30,23 +30,15 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
         : todo
     );
 
-    const hasAllSubTodosCompleted = todo.subTasks.every(
+    const hasAllSubTodosCompleted = newSubTaskArray.every(
       (todo) => todo.isDone === true
-    );
-
-    const hasAllSubTodosUnCompleted = todo.subTasks.every(
-      (todo) => todo.isDone === false
     );
 
     const newArray = todos.map((todo) =>
       todo.id === parentId
         ? {
             ...todo,
-            isDone: hasAllSubTodosCompleted
-              ? true
-              : hasAllSubTodosUnCompleted
-              ? false
-              : '',
+            isDone: hasAllSubTodosCompleted,
             subTasks: newSubTaskArray,
           }
         : todo
