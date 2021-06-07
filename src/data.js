@@ -24,7 +24,7 @@ export const sampleTodos = [
   {
     id: '2',
     title: 'Sample todo 2',
-    isDone: false,
+    isDone: true,
     createTime: '2021',
     subTasks: [
       {

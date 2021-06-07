@@ -11,8 +11,15 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
   const handleDelete = (id, parentId) => {
     const subTasks = todos.find((t) => t.id === parentId).subTasks;
     const filteredTasks = subTasks.filter((t) => t.id !== id);
+
+    const hasAllSubTodosCompleted = filteredTasks.every(
+      (todo) => todo.isDone === true
+    );
+
     const newArray = todos.map((todo) =>
-      todo.id === id ? '' : { ...todo, subTasks: filteredTasks }
+      todo.id === id
+        ? ''
+        : { ...todo, isDone: hasAllSubTodosCompleted, subTasks: filteredTasks }
     );
 
     setTodos(newArray);

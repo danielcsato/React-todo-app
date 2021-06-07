@@ -10,16 +10,22 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
   const [todoName, setTodoName] = useState('');
   const { todos, setTodos } = useContext(TodoContext);
 
-  const checkName = () => {
-    if (todos.some((todo) => todo.title === todoName)) {
-      return true;
-    }
-    // TODO check subtodos title aswell
+  const checkNameParent = () => todos.some((todo) => todo.title === todoName);
+
+  const checkNameSub = () => {
+    var bool;
+    todos.forEach((todo) =>
+      todo.subTasks.some((subTask) =>
+        subTask.title === todoName ? (bool = true) : ''
+      )
+    );
+
+    return bool;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (checkName()) {
+    if (checkNameParent() || checkNameSub()) {
       alert('Name already exists');
     } else {
       const newTodos = [
@@ -39,7 +45,7 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
 
   const handleSubtask = (e) => {
     e.preventDefault();
-    if (checkName()) {
+    if (checkNameParent() || checkNameSub()) {
       alert('Name already exists');
     } else {
       subTasks.push({
@@ -50,7 +56,11 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
         parentId: parent,
       });
       setTodoName('');
-      setTodos([...todos]);
+      //this unchecks the parent todo if   a subtodo is created
+      const newArray = todos.map((todo) =>
+        todo.id === parent ? { ...todo, isDone: false } : todo
+      );
+      setTodos([...newArray]);
     }
   };
   return (
