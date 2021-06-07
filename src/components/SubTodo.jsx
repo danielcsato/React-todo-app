@@ -1,5 +1,6 @@
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { TodoContext } from '../context/context';
+import PropTypes from 'prop-types';
 
 import { FaTrashAlt } from 'react-icons/fa';
 import { GrCheckbox, GrCheckboxSelected } from 'react-icons/gr';
@@ -10,43 +11,47 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
   const handleDelete = (id, parentId) => {
     const subTasks = todos.find((t) => t.id === parentId).subTasks;
     const filteredTasks = subTasks.filter((t) => t.id !== id);
-
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? '' : { ...todo, subTasks: filteredTasks }
-      )
+    const newArray = todos.map((todo) =>
+      todo.id === id ? '' : { ...todo, subTasks: filteredTasks }
     );
+
+    setTodos(newArray);
   };
 
   // TODO FIX THIS
   const handleComplete = (id, parentId) => {
     const todo = todos.find((todo) => todo.id === parentId);
-    const subTodos = todo.subTasks.every((todo) => todo.isDone === true);
-    //sets the subtodos isDone and sets parent todos isDone to false if the subtodos arent completed
-    if (!subTodos) {
-      const newSubs = todo.subTasks.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
-      );
-      const newArray = todos.map((todo) =>
-        todo.id === parentId
-          ? { ...todo, isDone: true, subTasks: newSubs }
-          : todo
-      );
-      setTodos(newArray);
-    }
+    const newSubTaskArray = todo.subTasks.map((todo) =>
+      todo.id === id
+        ? {
+            ...todo,
+            isDone: !todo.isDone,
+          }
+        : todo
+    );
 
-    //sets the subtodos isDone and sets parent todo to completed if every other subtodo is done aswell
-    else if (subTodos) {
-      const newSubs = todo.subTasks.map((todo) =>
-        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
-      );
-      const newArray = todos.map((todo) =>
-        todo.id === parentId
-          ? { ...todo, isDone: false, subTasks: newSubs }
-          : todo
-      );
-      setTodos(newArray);
-    }
+    const hasAllSubTodosCompleted = todo.subTasks.every(
+      (todo) => todo.isDone === true
+    );
+
+    const hasAllSubTodosUnCompleted = todo.subTasks.every(
+      (todo) => todo.isDone === false
+    );
+
+    const newArray = todos.map((todo) =>
+      todo.id === parentId
+        ? {
+            ...todo,
+            isDone: hasAllSubTodosCompleted
+              ? true
+              : hasAllSubTodosUnCompleted
+              ? false
+              : '',
+            subTasks: newSubTaskArray,
+          }
+        : todo
+    );
+    setTodos(newArray);
   };
 
   return (
@@ -79,6 +84,12 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
       </div>
     </div>
   );
+};
+
+SubTodo.propTypes = {
+  name: PropTypes.string,
+  id: PropTypes.string,
+  parentId: PropTypes.string,
 };
 
 export default SubTodo;

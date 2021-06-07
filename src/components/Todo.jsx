@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-
 import '../assets/Todo.scss';
+import PropTypes from 'prop-types';
+
 import { FaTrashAlt } from 'react-icons/fa';
 import { GrCheckbox, GrCheckboxSelected } from 'react-icons/gr';
 
@@ -8,15 +9,7 @@ import TodoForm from './TodoForm';
 import SubTodo from './SubTodo';
 import Modal from './Modal';
 
-const Todo = ({
-  name,
-  id,
-  handleComplete,
-  deleteTodo,
-  isDone,
-  parentId,
-  subTasks,
-}) => {
+const Todo = ({ name, id, handleComplete, deleteTodo, isDone, subTasks }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -64,6 +57,14 @@ const Todo = ({
       <TodoForm parent={id} subTasks={subTasks} />
     </div>
   );
+};
+
+Todo.propTypes = {
+  name: PropTypes.string,
+  id: PropTypes.string,
+  handleComplete: PropTypes.func,
+  deleteTodo: PropTypes.func,
+  subTasks: PropTypes.array,
 };
 
 export default Todo;

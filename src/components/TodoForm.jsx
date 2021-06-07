@@ -1,9 +1,10 @@
 import { useContext, useState } from 'react';
-import '../assets/TodoForm.scss';
-
 import { TodoContext } from '../context/context';
+import PropTypes from 'prop-types';
+
 import { v4 as uuidv4 } from 'uuid';
 import { getTime } from '../helpers/util';
+import '../assets/TodoForm.scss';
 
 const TodoForm = ({ parentForm, parent, subTasks }) => {
   const [todoName, setTodoName] = useState('');
@@ -75,6 +76,12 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
       </form>
     </div>
   );
+};
+
+TodoForm.propTypes = {
+  parentForm: PropTypes.bool,
+  parent: PropTypes.string,
+  subTasks: PropTypes.array,
 };
 
 export default TodoForm;

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import '../assets/TodoList.scss';
 import Todo from './Todo';
 
