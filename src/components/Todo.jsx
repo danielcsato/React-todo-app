@@ -42,28 +42,32 @@ const Todo = ({ name, id, handleComplete, deleteTodo, isDone, subTasks }) => {
           <FaTrashAlt className="trash" />
         </div>
       </div>
-      <ul>
-        {subTasks.map((sub) => {
-          return (
-            <li key={sub.id}>
-              <SubTodo
-                name={sub.title}
-                id={sub.id}
-                isDone={sub.isDone}
-                parentId={sub.parentId}
-              />
-            </li>
-          );
-        })}
-      </ul>
+      {subTasks.length > 0 && (
+        <div>
+          <ul>
+            {subTasks.map((sub) => {
+              return (
+                <li key={sub.id}>
+                  <SubTodo
+                    name={sub.title}
+                    id={sub.id}
+                    isDone={sub.isDone}
+                    parentId={sub.parentId}
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
       <TodoForm parent={id} subTasks={subTasks} />
     </div>
   );
 };
 
 Todo.propTypes = {
-  name: PropTypes.string,
-  id: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   handleComplete: PropTypes.func,
   deleteTodo: PropTypes.func,
   subTasks: PropTypes.array,

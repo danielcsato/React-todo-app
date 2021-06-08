@@ -12,7 +12,7 @@ const TodoList = () => {
         <div className="todos">
           <ul>
             {todos
-              .filter((t) => (active ? t : t.isDone === true))
+              .filter((todo) => (active ? todo : todo.isDone === true))
               .map(({ id, title, createTime, isDone, subTasks }) => {
                 return (
                   <li key={id}>

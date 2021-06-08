@@ -1,6 +1,10 @@
 import { useContext, useState } from 'react';
 import { TodoContext } from '../context/context';
 import PropTypes from 'prop-types';
+import {
+  isTodoNameAlreadyExists,
+  isSubTodoNameAlreadyExists,
+} from '../helpers/todoHandlers';
 
 import { v4 as uuidv4 } from 'uuid';
 import { getTime } from '../helpers/util';
@@ -10,22 +14,12 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
   const [todoName, setTodoName] = useState('');
   const { todos, setTodos } = useContext(TodoContext);
 
-  const checkNameParent = () => todos.some((todo) => todo.title === todoName);
-
-  const checkNameSub = () => {
-    var bool;
-    todos.forEach((todo) =>
-      todo.subTasks.some((subTask) =>
-        subTask.title === todoName ? (bool = true) : ''
-      )
-    );
-
-    return bool;
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (checkNameParent() || checkNameSub()) {
+    if (
+      isTodoNameAlreadyExists(todos, todoName) ||
+      isSubTodoNameAlreadyExists(todos, todoName)
+    ) {
       alert('Name already exists');
     } else {
       const newTodos = [
@@ -45,7 +39,7 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
 
   const handleSubtask = (e) => {
     e.preventDefault();
-    if (checkNameParent() || checkNameSub()) {
+    if (isTodoNameAlreadyExists() || isSubTodoNameAlreadyExists()) {
       alert('Name already exists');
     } else {
       subTasks.push({
@@ -57,10 +51,10 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
       });
       setTodoName('');
       //this unchecks the parent todo if   a subtodo is created
-      const newArray = todos.map((todo) =>
+      const newTodos = todos.map((todo) =>
         todo.id === parent ? { ...todo, isDone: false } : todo
       );
-      setTodos([...newArray]);
+      setTodos([...newTodos]);
     }
   };
   return (
