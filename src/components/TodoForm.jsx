@@ -39,7 +39,10 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
 
   const handleSubtask = (e) => {
     e.preventDefault();
-    if (isTodoNameAlreadyExists() || isSubTodoNameAlreadyExists()) {
+    if (
+      isTodoNameAlreadyExists(todos, todoName) ||
+      isSubTodoNameAlreadyExists(todos, todoName)
+    ) {
       alert('Name already exists');
     } else {
       subTasks.push({
@@ -67,6 +70,7 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
           placeholder={parentForm ? 'Add todo' : 'Add subtask'}
           value={todoName}
           onChange={(e) => setTodoName(e.target.value)}
+          autoFocus
         />
         {parentForm && (
           <button

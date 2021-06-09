@@ -1,15 +1,20 @@
+import { useState } from 'react';
 import { useContext } from 'react';
 import { TodoContext } from '../context/context';
 import PropTypes from 'prop-types';
 import {
   handleSubTodoDelete,
   handleSubTodoComplete,
+  handleMove,
+  getOptions,
 } from '../helpers/todoHandlers';
 import { FaTrashAlt } from 'react-icons/fa';
+import { HiOutlineFolderRemove } from 'react-icons/hi';
 import { GrCheckbox, GrCheckboxSelected } from 'react-icons/gr';
 
 const SubTodo = ({ name, id, isDone, parentId }) => {
   const { todos, setTodos } = useContext(TodoContext);
+  const [move, setMove] = useState(false);
 
   return (
     <div className="todoHolder">
@@ -31,12 +36,34 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
         >
           <p>{name}</p>
         </div>
-        <div
-          className="icons"
-          data-test-id="deleteButton"
-          onClick={() => handleSubTodoDelete(id, parentId, todos, setTodos)}
-        >
-          <FaTrashAlt className="trash" />
+        <div className="icons">
+          {!move ? (
+            <HiOutlineFolderRemove onClick={() => setMove(true)} />
+          ) : (
+            <select
+              className="select"
+              defaultValue=""
+              onChange={(e) =>
+                handleMove(e, id, parentId, setMove, todos, setTodos)
+              }
+            >
+              <option value="" disabled>
+                Move To
+              </option>
+              {getOptions(todos, parentId).map((todo) => {
+                return (
+                  <option key={todo.id} value={todo.id}>
+                    {todo.title}
+                  </option>
+                );
+              })}
+            </select>
+          )}
+
+          <FaTrashAlt
+            className="trash"
+            onClick={() => handleSubTodoDelete(id, parentId, todos, setTodos)}
+          />
         </div>
       </div>
     </div>
