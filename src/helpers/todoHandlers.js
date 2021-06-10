@@ -1,25 +1,30 @@
 //  DELETE SUBTASK
 
-export const deleteSubTodo = (id, parentId, todos) => {
-  const { subTasks } = todos.find((todo) => todo.id === parentId);
-  const filteredTasks = subTasks.filter((todo) => todo.id !== id);
-  const hasAllSubTodosCompleted = filteredTasks.every((todo) => todo.isDone);
+const hasAllSubTodosCompleted = (subTasks) =>
+  subTasks.every((todo) => todo.isDone);
 
-  const newArray = todos.map((todo) =>
-    todo.id === parentId
-      ? { ...todo, isDone: hasAllSubTodosCompleted, subTasks: filteredTasks }
+export const deleteSubTodo = (subTodoId, todoId, todos) => {
+  const { subTasks } = todos.find(({ id }) => id === todoId);
+  const filteredSubTasks = subTasks.filter(({ id }) => id !== subTodoId);
+  const newTodos = todos.map((todo) =>
+    todo.id === todoId
+      ? {
+          ...todo,
+          isDone: hasAllSubTodosCompleted(filteredSubTasks),
+          subTasks: filteredSubTasks,
+        }
       : todo
   );
 
-  return newArray;
+  return newTodos;
 };
 
 //  COMPLETE SUBTASK
 
-export const completeSubTodo = (id, parentId, todos) => {
-  const todo = todos.find((todo) => todo.id === parentId);
+export const completeSubTodo = (subTodoId, todoId, todos) => {
+  const todo = todos.find(({ id }) => id === todoId);
   const newSubTaskArray = todo.subTasks.map((todo) =>
-    todo.id === id
+    todo.id === subTodoId
       ? {
           ...todo,
           isDone: !todo.isDone,
@@ -27,18 +32,16 @@ export const completeSubTodo = (id, parentId, todos) => {
       : todo
   );
 
-  const hasAllSubTodosCompleted = newSubTaskArray.every((todo) => todo.isDone);
-
-  const newArray = todos.map((todo) =>
-    todo.id === parentId
+  const newTodos = todos.map((todo) =>
+    todo.id === todoId
       ? {
           ...todo,
-          isDone: hasAllSubTodosCompleted,
+          isDone: hasAllSubTodosCompleted(newSubTaskArray),
           subTasks: newSubTaskArray,
         }
       : todo
   );
-  return newArray;
+  return newTodos;
 };
 
 // CHECK IF NAME IS ALREADY EXISTS
@@ -59,62 +62,53 @@ export const isSubTodoNameAlreadyExists = (todos, name) => {
 
 // HANDLES CHANGE OF PARENTS
 
-export const moveSubTask = (value, id, parentId, todos) => {
+export const moveSubTask = (value, subTodoId, todoId, todos) => {
   const targetValue = value;
   // finds the subtasks of the parent task
-  const movedSubtasksParent = todos.find(
-    (todo) => todo.id === parentId
-  ).subTasks;
+  const movedSubtasksParent = todos.find(({ id }) => id === todoId).subTasks;
 
   //finds the moved subtask
-  const getSubtask = movedSubtasksParent
-    .filter((todo) => todo.id === id)
-    .map((todo) =>
-      todo.id === id
-        ? {
-            ...todo,
-            parentId: targetValue,
-          }
-        : todo
-    );
+  const getSubtask = movedSubtasksParent.filter(({ id }) => id === subTodoId);
+  getSubtask[0].parentId = targetValue;
   //filters out the moved subtask
-  const filteredSubtasks = movedSubtasksParent.filter((todo) => todo.id !== id);
+  const filteredSubtasks = movedSubtasksParent.filter(
+    ({ id }) => id !== subTodoId
+  );
 
   //finds the new parent task
-  const newParentTask = todos.find((todo) => todo.id === targetValue).subTasks;
+  const { subTasks: newParentTask } = todos.find(
+    ({ id }) => id === targetValue
+  );
   //Adds the moved subtask to subtasks of the new parent
   const newParentSubtasks = newParentTask.concat(getSubtask);
 
-  const hasAllSubTodosCompleted = movedSubtasksParent
-    .filter((todo) => todo.id !== id)
+  const hasAllFilteredSubTodosCompleted = movedSubtasksParent
+    .filter(({ id }) => id !== subTodoId)
     .every((todo) => todo.isDone);
-  const newParentHasAllSubTodosCompleted = newParentSubtasks.every(
-    (todo) => todo.isDone
-  );
 
   //Creates a temporary array , this changes the subtasks of the new parent task
-
-  //Final array of todos, this removes the moved subtask from previous parent task
   const tempArray = todos.map((todo) =>
-    todo.id === parentId
+    todo.id === todoId
       ? {
           ...todo,
-          isDone: hasAllSubTodosCompleted,
+          isDone: hasAllFilteredSubTodosCompleted,
           subTasks: filteredSubtasks,
         }
       : todo
   );
-  const newArray = tempArray.map((todo) =>
+
+  //Final array of todos, this removes the moved subtask from previous parent task
+  const newTodos = tempArray.map((todo) =>
     todo.id === targetValue
       ? {
           ...todo,
-          isDone: newParentHasAllSubTodosCompleted,
+          isDone: hasAllSubTodosCompleted(newParentSubtasks),
           subTasks: newParentSubtasks,
         }
       : todo
   );
 
-  return newArray;
+  return newTodos;
 };
 
 //

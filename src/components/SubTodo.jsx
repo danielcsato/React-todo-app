@@ -27,7 +27,7 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
   };
 
   const handleMove = (e, id, parentId) => {
-    const value = e.target.value;
+    const { value } = e.target;
     const newTodos = moveSubTask(value, id, parentId, todos);
     setTodos(newTodos);
     setMove(false);
@@ -44,7 +44,7 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
             <GrCheckboxSelected className="done" />
           ) : (
             <GrCheckbox className="done" />
-          )}{' '}
+          )}
         </div>
         <div
           className="title"

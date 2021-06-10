@@ -36,7 +36,7 @@ const Todo = ({ name, id, handleComplete, deleteTodo, isDone, subTasks }) => {
         </div>
         <div className="title" id="title" onClick={() => handleComplete(id)}>
           <p>
-            {name} {subTasks.length !== 0 ? `(${subTasks.length})` : ''}
+            {name} {subTasks.length && `(${subTasks.length})`}
           </p>
         </div>
         <div className="icons">
@@ -57,7 +57,6 @@ const Todo = ({ name, id, handleComplete, deleteTodo, isDone, subTasks }) => {
       {addNew && <TodoForm parent={id} subTasks={subTasks} />}
       {showSubtasks && (
         <div>
-          {' '}
           {subTasks.length > 0 && (
             <div>
               <ul>

@@ -9,15 +9,16 @@ import {
 import { sampleTodos } from '../data';
 
 describe('Todo handler', () => {
+  const mockSubTodo = { id: '3' };
+  const mockTodo = { id: '1' };
+
   describe('deleteSubTodo() function', () => {
     it('should delete subtodo from todolist', () => {
-      const mockSubTodo = {
-        id: '3',
-      };
       const mockResultSubTodoId = '4';
-      const mockTodo = { id: '1' };
+
       const result = deleteSubTodo(mockSubTodo.id, mockTodo.id, sampleTodos);
       const { subTasks } = result.find(({ id }) => id === mockTodo.id);
+
       expect(subTasks.length).toBe(1);
       expect(subTasks[0].id).toBe(mockResultSubTodoId);
       expect(subTasks.find(({ id }) => id === mockSubTodo.id)).toBeFalsy();
@@ -26,12 +27,9 @@ describe('Todo handler', () => {
 
   describe('completeSubTodo() function', () => {
     it('should complete the subtodo', () => {
-      const mockSubTodo = {
-        id: '3',
-      };
-      const mockTodo = { id: '1' };
       const result = completeSubTodo(mockSubTodo.id, mockTodo.id, sampleTodos);
       const { subTasks } = result.find(({ id }) => id === mockTodo.id);
+
       expect(subTasks.length).toBe(2);
       expect(subTasks[0].isDone).toBeTruthy();
       expect(subTasks[1].isDone).toBeTruthy();
@@ -39,21 +37,28 @@ describe('Todo handler', () => {
   });
   describe('moveSubTask() function', () => {
     it('should move subtodo to another parent', () => {
-      const mockValue = '2';
-      const mockSubTodo = {
-        id: '3',
-      };
-      const mockTodo = { id: '1' };
+      const mockTargetValue = '2';
       const result = moveSubTask(
-        mockValue,
+        mockTargetValue,
         mockSubTodo.id,
         mockTodo.id,
         sampleTodos
       );
       const { subTasks } = result.find(({ id }) => id === mockTodo.id);
       const newParentSubTasks = result[1].subTasks;
+      const getOtherSubTaskFromOldTodo = subTasks.find(({ id }) => id === '4');
+
+      const getOtherSubTaskFromOriginalTodoArray = sampleTodos[0].subTasks.find(
+        ({ id }) => id === '4'
+      );
+
       expect(subTasks.length).toBe(1);
+      expect(subTasks.find((todo) => todo.id === '3')).toBeFalsy();
       expect(newParentSubTasks.length).toBe(2);
+      expect(newParentSubTasks.find((todo) => todo.id === '3')).toBeTruthy();
+      expect(
+        getOtherSubTaskFromOldTodo === getOtherSubTaskFromOriginalTodoArray
+      ).toBeTruthy();
     });
   });
 
@@ -62,6 +67,7 @@ describe('Todo handler', () => {
       const mockParentId = '1';
       const mockResultTodoId = '2';
       const result = getTodosWithoutSubTodoParent(sampleTodos, mockParentId);
+
       expect(result).toHaveLength(1);
       expect(result[0].id).toBe(mockResultTodoId);
       expect(result.find((todo) => todo.id === mockParentId)).toBeFalsy();
