@@ -1,14 +1,17 @@
 import React, { createContext, useState, useEffect } from 'react';
+import { sampleTodos } from '../data';
 
 export const TodoContext = createContext();
 
 const TodoContextProvider = (props) => {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(sampleTodos);
   const [active, setActive] = useState(true);
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem('todos'));
-    if (todos) {
+    if (todos.length === 0) {
+      setTodos(sampleTodos);
+    } else {
       setTodos(todos);
     }
   }, []);
@@ -24,29 +27,17 @@ const TodoContextProvider = (props) => {
 
   const handleComplete = (id) => {
     const todo = todos.find((t) => t.id === id);
-    if (todo.isDone === false) {
-      const completedSubs = todo.subTasks.map((t) =>
-        t.length !== 0 ? { ...t, isDone: true } : t
-      );
-      setTodos(
-        todos.map((todo) =>
-          todo.id === id
-            ? { ...todo, isDone: !todo.isDone, subTasks: completedSubs }
-            : todo
-        )
-      );
-    } else {
-      const completedSubs = todo.subTasks.map((t) =>
-        t.length !== 0 ? { ...t, isDone: false } : t
-      );
-      setTodos(
-        todos.map((todo) =>
-          todo.id === id
-            ? { ...todo, isDone: !todo.isDone, subTasks: completedSubs }
-            : todo
-        )
-      );
-    }
+    const completedSubs = todo.subTasks.map((t) => ({
+      ...t,
+      isDone: !todo.isDone,
+    }));
+    const newTodos = todos.map((todo) =>
+      todo.id === id
+        ? { ...todo, isDone: !todo.isDone, subTasks: completedSubs }
+        : todo
+    );
+
+    setTodos(newTodos);
   };
 
   return (

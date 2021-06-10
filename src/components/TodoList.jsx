@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import '../assets/TodoList.scss';
 import Todo from './Todo';
 
@@ -12,7 +12,7 @@ const TodoList = () => {
         <div className="todos">
           <ul>
             {todos
-              .filter((t) => (active ? t : t.isDone === true))
+              .filter((todo) => (active ? todo : todo.isDone))
               .map(({ id, title, createTime, isDone, subTasks }) => {
                 return (
                   <li key={id}>

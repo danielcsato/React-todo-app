@@ -77,7 +77,6 @@
   font-size: 20px;
   height: 100%;
   cursor: pointer;
-  color: rgb(255, 51, 102);
 }
 
 .modal {
@@ -157,7 +156,7 @@
 
 .subtodoMain {
   background-color: white;
-  width: 400px;
+  width: 340px;
   min-height: 15px;
   cursor: pointer;
   height: 100%;
@@ -177,7 +176,7 @@
 
 .subtodoMainDone {
   background-color: #50d2c1;
-  width: 400px;
+  width: 340px;
   min-height: 15px;
   height: 100%;
   margin: 10px 0px;
@@ -197,5 +196,9 @@
 
 .todoHolder {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+}
+
+.trash {
+  color: rgb(255, 51, 102);
 }

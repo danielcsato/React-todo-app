@@ -1,9 +1,14 @@
 import { useContext, useState } from 'react';
-import '../assets/TodoForm.scss';
-
 import { TodoContext } from '../context/context';
+import PropTypes from 'prop-types';
+import {
+  isTodoNameAlreadyExists,
+  isSubTodoNameAlreadyExists,
+} from '../helpers/todoHandlers';
+
 import { v4 as uuidv4 } from 'uuid';
 import { getTime } from '../helpers/util';
+import '../assets/TodoForm.scss';
 
 const TodoForm = ({ parentForm, parent, subTasks }) => {
   const [todoName, setTodoName] = useState('');
@@ -11,28 +16,33 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (todos.some((todo) => todo.title === todoName)) {
+    if (
+      isTodoNameAlreadyExists(todos, todoName) ||
+      isSubTodoNameAlreadyExists(todos, todoName)
+    ) {
       alert('Name already exists');
     } else {
-      setTodos((t) => [
-        ...t,
+      const newTodos = [
+        ...todos,
         {
           id: uuidv4(),
           title: todoName,
           isDone: false,
           createTime: getTime(),
-          parentId: null,
           subTasks: [],
         },
-      ]);
+      ];
+      setTodos(newTodos);
       setTodoName('');
     }
   };
 
   const handleSubtask = (e) => {
     e.preventDefault();
-    const checkName = todos.some((todo) => todo.title === todoName);
-    if (checkName) {
+    if (
+      isTodoNameAlreadyExists(todos, todoName) ||
+      isSubTodoNameAlreadyExists(todos, todoName)
+    ) {
       alert('Name already exists');
     } else {
       subTasks.push({
@@ -43,7 +53,11 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
         parentId: parent,
       });
       setTodoName('');
-      setTodos((t) => [...t]);
+      //this unchecks the parent todo if   a subtodo is created
+      const newTodos = todos.map((todo) =>
+        todo.id === parent ? { ...todo, isDone: false } : todo
+      );
+      setTodos([...newTodos]);
     }
   };
   return (
@@ -56,12 +70,11 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
           placeholder={parentForm ? 'Add todo' : 'Add subtask'}
           value={todoName}
           onChange={(e) => setTodoName(e.target.value)}
+          autoFocus
         />
         {parentForm && (
           <button
-            className={
-              todoName.length === 0 ? 'submitBtnDisabled' : 'submitBtn'
-            }
+            className="submitBtn"
             type="submit"
             disabled={todoName.length === 0}
           >
@@ -71,6 +84,12 @@ const TodoForm = ({ parentForm, parent, subTasks }) => {
       </form>
     </div>
   );
+};
+
+TodoForm.propTypes = {
+  parentForm: PropTypes.bool,
+  parent: PropTypes.string,
+  subTasks: PropTypes.array,
 };
 
 export default TodoForm;

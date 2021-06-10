@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+Array [
+  <div
+    className="overlay"
+    onClick={[Function]}
+  />,
+  <div
+    className="modal"
+  >
+    <div
+      className="modalTitle"
+    >
+      <h5>
+        Are you sure?
+      </h5>
+    </div>
+    <div
+      className="modalButtons"
+    >
+      <button
+        className="modalKeep"
+        onClick={[Function]}
+      >
+        Keep
+      </button>
+      <button
+        className="modalDelete"
+      >
+        Delete
+      </button>
+    </div>
+  </div>,
+]
+`;

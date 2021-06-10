@@ -1,9 +1,11 @@
 import '../assets/Nav.scss';
 import { useContext } from 'react';
 import { TodoContext } from '../context/context';
+import { GrPowerReset } from 'react-icons/gr';
 
 const Nav = () => {
-  const { todos, active, setActive } = useContext(TodoContext);
+  const { todos, active, setActive, setTodos } = useContext(TodoContext);
+
   return (
     <nav className="mainNav">
       <p>
@@ -25,6 +27,7 @@ const Nav = () => {
           All
         </button>
       </div>
+      <GrPowerReset className="reset" onClick={() => setTodos([])} />
     </nav>
   );
 };

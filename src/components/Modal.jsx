@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Modal = ({ setIsOpen, deleteTodo }) => {
   return (
     <>
@@ -5,7 +7,6 @@ const Modal = ({ setIsOpen, deleteTodo }) => {
       <div className="modal">
         <div className="modalTitle">
           <h5>Are you sure?</h5>
-          
         </div>
         <div className="modalButtons">
           <button className="modalKeep" onClick={() => setIsOpen(false)}>
