@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {
   deleteSubTodo,
   completeSubTodo,
-  handleMove,
+  moveSubTask,
   getTodosWithoutSubTodoParent,
 } from '../helpers/todoHandlers';
 import { FaTrashAlt } from 'react-icons/fa';
@@ -24,6 +24,13 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
   const handleSubTodoComplete = (id, parentId) => {
     const newTodos = completeSubTodo(id, parentId, todos);
     setTodos(newTodos);
+  };
+
+  const handleMove = (e, id, parentId) => {
+    const value = e.target.value;
+    const newTodos = moveSubTask(value, id, parentId, todos);
+    setTodos(newTodos);
+    setMove(false);
   };
 
   return (
@@ -53,9 +60,7 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
             <select
               className="select"
               defaultValue=""
-              onChange={(e) =>
-                handleMove(e, id, parentId, setMove, todos, setTodos)
-              }
+              onChange={(e) => handleMove(e, id, parentId)}
             >
               <option value="" disabled>
                 Move To

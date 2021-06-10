@@ -59,7 +59,8 @@ export const isSubTodoNameAlreadyExists = (todos, name) => {
 
 // HANDLES CHANGE OF PARENTS
 
-export const handleMove = (e, id, parentId, setMove, todos, setTodos) => {
+export const moveSubTask = (value, id, parentId, todos) => {
+  const targetValue = value;
   // finds the subtasks of the parent task
   const movedSubtasksParent = todos.find(
     (todo) => todo.id === parentId
@@ -72,7 +73,7 @@ export const handleMove = (e, id, parentId, setMove, todos, setTodos) => {
       todo.id === id
         ? {
             ...todo,
-            parentId: e.target.value,
+            parentId: targetValue,
           }
         : todo
     );
@@ -80,9 +81,7 @@ export const handleMove = (e, id, parentId, setMove, todos, setTodos) => {
   const filteredSubtasks = movedSubtasksParent.filter((todo) => todo.id !== id);
 
   //finds the new parent task
-  const newParentTask = todos.find(
-    (todo) => todo.id === e.target.value
-  ).subTasks;
+  const newParentTask = todos.find((todo) => todo.id === targetValue).subTasks;
   //Adds the moved subtask to subtasks of the new parent
   const newParentSubtasks = newParentTask.concat(getSubtask);
 
@@ -106,7 +105,7 @@ export const handleMove = (e, id, parentId, setMove, todos, setTodos) => {
       : todo
   );
   const newArray = tempArray.map((todo) =>
-    todo.id === e.target.value
+    todo.id === targetValue
       ? {
           ...todo,
           isDone: newParentHasAllSubTodosCompleted,
@@ -115,8 +114,7 @@ export const handleMove = (e, id, parentId, setMove, todos, setTodos) => {
       : todo
   );
 
-  setTodos(newArray);
-  setMove(false);
+  return newArray;
 };
 
 //
