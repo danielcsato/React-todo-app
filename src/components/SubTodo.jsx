@@ -3,10 +3,10 @@ import { useContext } from 'react';
 import { TodoContext } from '../context/context';
 import PropTypes from 'prop-types';
 import {
-  handleSubTodoDelete,
+  deleteSubTodo,
   handleSubTodoComplete,
   handleMove,
-  getOptions,
+  getTodosWithoutSubTodoParent,
 } from '../helpers/todoHandlers';
 import { FaTrashAlt } from 'react-icons/fa';
 import { HiOutlineFolderRemove } from 'react-icons/hi';
@@ -15,6 +15,11 @@ import { GrCheckbox, GrCheckboxSelected } from 'react-icons/gr';
 const SubTodo = ({ name, id, isDone, parentId }) => {
   const { todos, setTodos } = useContext(TodoContext);
   const [move, setMove] = useState(false);
+
+  const handleSubTodoDelete = (id, parentId) => {
+    const newTodos = deleteSubTodo(id, parentId, todos);
+    setTodos(newTodos);
+  };
 
   return (
     <div className="todoHolder">
@@ -50,7 +55,7 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
               <option value="" disabled>
                 Move To
               </option>
-              {getOptions(todos, parentId).map((todo) => {
+              {getTodosWithoutSubTodoParent(todos, parentId).map((todo) => {
                 return (
                   <option key={todo.id} value={todo.id}>
                     {todo.title}

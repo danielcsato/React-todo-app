@@ -1,9 +1,8 @@
 //  DELETE SUBTASK
 
-export const handleSubTodoDelete = (id, parentId, todos, setTodos) => {
+export const deleteSubTodo = (id, parentId, todos) => {
   const { subTasks } = todos.find((todo) => todo.id === parentId);
   const filteredTasks = subTasks.filter((todo) => todo.id !== id);
-  console.log(filteredTasks);
   const hasAllSubTodosCompleted = filteredTasks.every((todo) => todo.isDone);
 
   const newArray = todos.map((todo) =>
@@ -12,7 +11,7 @@ export const handleSubTodoDelete = (id, parentId, todos, setTodos) => {
       : todo
   );
 
-  setTodos(newArray);
+  return newArray;
 };
 
 //  COMPLETE SUBTASK
@@ -121,5 +120,5 @@ export const handleMove = (e, id, parentId, setMove, todos, setTodos) => {
 };
 
 //
-export const getOptions = (todos, parentId) =>
-  todos.filter((todo) => todo.id !== parentId);
+export const getTodosWithoutSubTodoParent = (todos, todoId) =>
+  todos.filter(({ id }) => id !== todoId);
