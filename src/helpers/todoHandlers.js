@@ -16,7 +16,7 @@ export const deleteSubTodo = (id, parentId, todos) => {
 
 //  COMPLETE SUBTASK
 
-export const handleSubTodoComplete = (id, parentId, todos, setTodos) => {
+export const completeSubTodo = (id, parentId, todos) => {
   const todo = todos.find((todo) => todo.id === parentId);
   const newSubTaskArray = todo.subTasks.map((todo) =>
     todo.id === id
@@ -38,7 +38,7 @@ export const handleSubTodoComplete = (id, parentId, todos, setTodos) => {
         }
       : todo
   );
-  setTodos(newArray);
+  return newArray;
 };
 
 // CHECK IF NAME IS ALREADY EXISTS

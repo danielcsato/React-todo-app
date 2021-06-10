@@ -4,7 +4,7 @@ import { TodoContext } from '../context/context';
 import PropTypes from 'prop-types';
 import {
   deleteSubTodo,
-  handleSubTodoComplete,
+  completeSubTodo,
   handleMove,
   getTodosWithoutSubTodoParent,
 } from '../helpers/todoHandlers';
@@ -21,12 +21,17 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
     setTodos(newTodos);
   };
 
+  const handleSubTodoComplete = (id, parentId) => {
+    const newTodos = completeSubTodo(id, parentId, todos);
+    setTodos(newTodos);
+  };
+
   return (
     <div className="todoHolder">
       <div className={isDone ? 'subtodoMainDone' : 'subtodoMain'}>
         <div
           className={isDone ? 'checkboxDone' : 'checkbox'}
-          onClick={() => handleSubTodoComplete(id, parentId, todos, setTodos)}
+          onClick={() => handleSubTodoComplete(id, parentId)}
         >
           {isDone ? (
             <GrCheckboxSelected className="done" />
@@ -37,7 +42,7 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
         <div
           className="title"
           id="title"
-          onClick={() => handleSubTodoComplete(id, parentId, todos, setTodos)}
+          onClick={() => handleSubTodoComplete(id, parentId)}
         >
           <p>{name}</p>
         </div>

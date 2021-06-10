@@ -2,6 +2,7 @@ import {
   isTodoNameAlreadyExists,
   isSubTodoNameAlreadyExists,
   deleteSubTodo,
+  completeSubTodo,
   getTodosWithoutSubTodoParent,
 } from '../helpers/todoHandlers';
 import { sampleTodos } from '../data';
@@ -19,6 +20,20 @@ describe('Todo handler', () => {
       expect(subTasks.length).toBe(1);
       expect(subTasks[0].id).toBe(mockResultSubTodoId);
       expect(subTasks.find(({ id }) => id === mockSubTodo.id)).toBeFalsy();
+    });
+  });
+
+  describe.only('completeSubTodo() function', () => {
+    it('should complete the subtodo', () => {
+      const mockSubTodo = {
+        id: '3',
+      };
+      const mockTodo = { id: '1' };
+      const result = completeSubTodo(mockSubTodo.id, mockTodo.id, sampleTodos);
+      const { subTasks } = result.find(({ id }) => id === mockTodo.id);
+      expect(subTasks.length).toBe(2);
+      expect(subTasks[0].isDone).toBeTruthy();
+      expect(subTasks[1].isDone).toBeTruthy();
     });
   });
 
