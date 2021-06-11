@@ -6,6 +6,7 @@ import { TodoContext } from '../context/context';
 
 const TodoList = () => {
   const { todos, active, deleteTodo, handleComplete } = useContext(TodoContext);
+  console.log(todos);
   return (
     <>
       <div className="todoList">

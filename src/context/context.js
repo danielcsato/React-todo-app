@@ -4,12 +4,12 @@ import { sampleTodos } from '../data';
 export const TodoContext = createContext();
 
 const TodoContextProvider = (props) => {
-  const [todos, setTodos] = useState(sampleTodos);
+  const [todos, setTodos] = useState([]);
   const [active, setActive] = useState(true);
 
   useEffect(() => {
     const todos = JSON.parse(localStorage.getItem('todos'));
-    if (todos.length === 0) {
+    if (!todos?.length) {
       setTodos(sampleTodos);
     } else {
       setTodos(todos);

@@ -29,22 +29,24 @@ const Todo = ({ name, id, handleComplete, deleteTodo, isDone, subTasks }) => {
           onClick={() => handleComplete(id)}
         >
           {isDone ? (
-            <GrCheckboxSelected className="done" />
+            <GrCheckboxSelected className="Undo" />
           ) : (
             <GrCheckbox className="done" />
           )}
         </div>
         <div className="title" id="title" onClick={() => handleComplete(id)}>
           <p>
-            {name} {subTasks.length && `(${subTasks.length})`}
+            {name} {subTasks.length !== 0 && `(${subTasks.length})`}
           </p>
         </div>
         <div className="icons">
-          {addNew ? (
-            <FiMinus onClick={() => setAddNew(!addNew)} />
-          ) : (
-            <FiPlus onClick={() => setAddNew(!addNew)} />
-          )}
+          <div className="showSubs">
+            {addNew ? (
+              <FiMinus onClick={() => setAddNew(!addNew)} />
+            ) : (
+              <FiPlus onClick={() => setAddNew(!addNew)} />
+            )}
+          </div>
           {showSubtasks ? (
             <BiHide onClick={() => setShowSubtasks(!showSubtasks)} />
           ) : (
