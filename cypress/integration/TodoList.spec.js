@@ -8,8 +8,8 @@ import {
   RESET_BTN_SELECTOR,
 } from './selectors';
 
-describe.skip('Todo app test', () => {
-  const URL = 'http://localhost:3000/';
+describe('Todo app test', () => {
+  const URL = 'https://danitodos.netlify.app/';
   it('Visits the todo app and clears localstorage', () => {
     cy.visit(URL);
     cy.get(RESET_BTN_SELECTOR).click();
@@ -26,7 +26,7 @@ describe.skip('Todo app test', () => {
     cy.get(ADD_SUBTODO_SUBMIT_BTN_SELECTOR).type('Test subtodo 1{enter}');
     cy.get(ADD_SUBTODO_SUBMIT_BTN_SELECTOR).type('Test subtodo 2{enter}');
     cy.get(ADD_SUBTODO_SUBMIT_BTN_SELECTOR).type('Test subtodo 3{enter}');
-    cy.get(SHOW_ADD_SUBTODO_INPUT).click();
+    cy.get(SHOW_ADD_SUBTODO_INPUT_SELECTOR).click();
   });
 
   it('Completes the subtasks', () => {
@@ -44,7 +44,7 @@ describe.skip('Todo app test', () => {
 
   it('Adds another parent task', () => {
     cy.get(ADD_TODO_NAME_INPUT_SELECTOR).type('Test todo 2');
-    cy.get(ADD_TODO_SUBMIT_BTN).click();
+    cy.get(ADD_TODO_SUBMIT_BTN_SELECTOR).click();
   });
 
   it('Moves a subtask to the newly created parent task ', () => {
