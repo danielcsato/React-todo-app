@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useContext } from 'react';
 import { TodoContext } from '../context/context';
 import PropTypes from 'prop-types';
@@ -55,7 +55,10 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
         </div>
         <div className="icons">
           {!move ? (
-            <HiOutlineFolderRemove onClick={() => setMove(true)} />
+            <HiOutlineFolderRemove
+              onClick={() => setMove(true)}
+              className="moveIcon"
+            />
           ) : (
             <select
               className="select"

@@ -1,3 +1,4 @@
+import React from 'react';
 import '../assets/Nav.scss';
 import { useContext } from 'react';
 import { TodoContext } from '../context/context';
@@ -8,11 +9,7 @@ const Nav = () => {
 
   return (
     <nav className="mainNav">
-      <p>
-        {todos.length === 0
-          ? 'No todos left'
-          : `You have ${todos.length} Todos`}
-      </p>
+      <p>{todos ? `You have ${todos.length} Todos` : 'No todos left'}</p>
       <div className="buttons">
         <button
           className={active ? 'buttonInactive' : 'buttonActive'}
