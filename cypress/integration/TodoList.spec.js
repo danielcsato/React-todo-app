@@ -8,7 +8,7 @@ import {
   RESET_BTN_SELECTOR,
 } from './selectors';
 
-describe.skip('Todo app test', () => {
+describe('Todo app test', () => {
   const URL = 'https://danitodos.netlify.app/';
   it('Visits the todo app and clears localstorage', () => {
     cy.visit(URL);
