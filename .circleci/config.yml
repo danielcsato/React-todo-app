@@ -33,7 +33,9 @@ jobs:
           command: npm test
 
 wworkflows:
+  sample:
+    jobs:
+      - build-and-test
   build:
     jobs:
       - cypress/run
-      - build-and-test
