@@ -10,13 +10,13 @@ import {
 
 describe('Todo app test', () => {
   const URL = 'https://danitodos.netlify.app/';
-  it('Visits the todo app and clears localstorage', () => {
+  it('Visits the todo app and clears default tasks', () => {
     cy.visit(URL);
+    cy.get('li').should('exist');
     cy.get(RESET_BTN_SELECTOR).click();
     cy.url().should('eq', URL);
     cy.get('li').should('not.exist');
   });
-
   it('Adds a new todo and completes it', () => {
     cy.get(ADD_TODO_NAME_INPUT_SELECTOR).type('Test todo 1');
     cy.get(ADD_TODO_SUBMIT_BTN_SELECTOR).click();
