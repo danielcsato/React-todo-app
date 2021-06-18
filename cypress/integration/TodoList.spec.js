@@ -14,6 +14,7 @@ import {
   TODOLIST_LI_SELECTOR,
   UNDO_BTN_SELECTOR,
   DONE_BTN_SELECTOR,
+  LI_SELECTOR,
 } from './selectors';
 
 const URL = 'http://localhost:3000/';
@@ -47,7 +48,7 @@ describe('Add new todo functionality', () => {
     cy.get(TODO_BODY_SELECTOR).contains(`${mockTodoName1} (3)`);
     cy.get(TODOLIST_UL_SELECTOR)
       .first()
-      .find('li')
+      .find(LI_SELECTOR)
       .should(($li) => {
         expect($li).to.have.length(3);
       });
@@ -65,7 +66,7 @@ describe('Move functionality', () => {
     cy.get(PARENT_TODO_SELECTOR).first().contains(`${mockTodoName1} (1)`);
     cy.get(TODOLIST_UL_SELECTOR)
       .first()
-      .find('li')
+      .find(LI_SELECTOR)
       .should(($li) => {
         expect($li).to.have.length(1);
       });
@@ -73,7 +74,7 @@ describe('Move functionality', () => {
     cy.get(PARENT_TODO_SELECTOR).eq(1).contains(`${mockTodoName2} (2)`);
     cy.get(TODOLIST_UL_SELECTOR)
       .eq(1)
-      .find('li')
+      .find(LI_SELECTOR)
       .should(($li) => {
         expect($li).to.have.length(2);
       });

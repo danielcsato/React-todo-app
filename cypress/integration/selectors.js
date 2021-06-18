@@ -16,3 +16,4 @@ export const ADD_NEW_SUBTODO_ICON_MINUS_SELECTOR =
 export const TODOLIST_LI_SELECTOR = '[data-test-id=subtodoLi]';
 export const UNDO_BTN_SELECTOR = '.Undo';
 export const DONE_BTN_SELECTOR = '.Done'
+export const LI_SELECTOR = 'li'
