@@ -84,6 +84,7 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
 
           <FaTrashAlt
             className="trash"
+            data-test-id="subtodoTrashIcon"
             onClick={() => handleSubTodoDelete(id, parentId, todos, setTodos)}
           />
         </div>
