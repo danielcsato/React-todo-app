@@ -45,6 +45,12 @@ describe('Add new todo functionality', () => {
     cy.get(ADD_TODO_NAME_INPUT_SELECTOR).first().type('Test subtodo 3{enter}');
     cy.get(SHOW_ADD_SUBTODO_BTN_SELECTOR).click();
     cy.get(TODO_BODY_SELECTOR).contains(`${mockTodoName1} (3)`);
+    cy.get(TODOLIST_UL_SELECTOR)
+      .first()
+      .find('li')
+      .should(($li) => {
+        expect($li).to.have.length(3);
+      });
   });
 });
 
