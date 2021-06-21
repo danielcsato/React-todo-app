@@ -27,6 +27,7 @@ Array [
       </button>
       <button
         className="modalDelete"
+        data-test-id="confirmTrashBtn"
       >
         Delete
       </button>
