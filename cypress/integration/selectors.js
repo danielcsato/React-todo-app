@@ -6,6 +6,8 @@ export const SHOW_ADD_SUBTODO_BTN_SELECTOR = '.showSubs';
 export const UNDO_BTN_SELECTOR = '.Undo';
 export const DONE_BTN_SELECTOR = '.Done';
 export const SUBTODO_TRASH_BTN_SELECTOR = '[data-test-id=subtodoTrashIcon]';
+export const TODO_TRASH_BTN_SELECTOR = '[data-test-id=parentTrashIcon]';
+export const MODAL_TRASH_BTN_SELECTOR = '.modalDelete';
 
 //TODOS
 export const ADD_TODO_NAME_INPUT_SELECTOR = '.todoName';

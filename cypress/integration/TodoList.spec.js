@@ -13,7 +13,9 @@ import {
   UNDO_BTN_SELECTOR,
   DONE_BTN_SELECTOR,
   SUBTODO_LI_SELECTOR,
+  TODO_TRASH_BTN_SELECTOR,
   SUBTODO_TRASH_BTN_SELECTOR,
+  MODAL_TRASH_BTN_SELECTOR,
 } from './selectors';
 
 const URL = 'http://localhost:3000/';
@@ -90,15 +92,23 @@ describe('Delete functionality', () => {
   });
 
   it('Deletes the latest subtodo and check if parent is done', () => {
-    cy.get(TODOLIST_CONTAINER_SELECTOR).should(($li) => {
-      expect($li).to.have.length(1);
-    });
     cy.get(SUBTODO_TRASH_BTN_SELECTOR).first().click();
     cy.get(TODOLIST_CONTAINER_SELECTOR).contains(`${mockTodoName1} (1)`);
     cy.get(PARENT_TODO_SELECTOR)
       .first()
       .children()
       .should('have.class', 'checkboxDone');
+    cy.get(TODOLIST_CONTAINER_SELECTOR).should(($li) => {
+      expect($li).to.have.length(1);
+    });
+  });
+
+  it('Deletes the first parent todo', () => {
+    cy.get(TODO_TRASH_BTN_SELECTOR).first().click();
+    cy.get(MODAL_TRASH_BTN_SELECTOR).click();
+    cy.get(LIST_SELECTOR).should(($li) => {
+      expect($li).to.have.length(1);
+    });
   });
 });
 
@@ -114,6 +124,17 @@ describe('Complete functionality', () => {
   it('Check if parent is completed after', () => {
     cy.get(DONE_BTN_SELECTOR).should('not.exist');
   });
+  it('Completes a parent task', () => {
+    cy.visit(URL);
+    cy.get(UNDO_BTN_SELECTOR).first().click();
+    cy.get(PARENT_TODO_SELECTOR)
+      .first()
+      .children()
+      .should('have.class', 'checkbox');
+  });
+  it('Check if subtodos are completed after', () => {
+    cy.get(UNDO_BTN_SELECTOR).should('not.exist');
+  });
 });
 
 describe('Uncomplete functionality', () => {
@@ -127,5 +148,16 @@ describe('Uncomplete functionality', () => {
   });
   it('Check if parent is uncompleted after', () => {
     cy.get(UNDO_BTN_SELECTOR).should('exist');
+  });
+  it('Uncompletes a parent task', () => {
+    cy.visit(URL);
+    cy.get(UNDO_BTN_SELECTOR).first().click();
+    cy.get(PARENT_TODO_SELECTOR)
+      .first()
+      .children()
+      .should('have.class', 'checkbox');
+  });
+  it('Check if subtodos are uncompleted after', () => {
+    cy.get(UNDO_BTN_SELECTOR).should('not.exist');
   });
 });

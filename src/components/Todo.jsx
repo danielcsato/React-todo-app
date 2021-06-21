@@ -62,7 +62,11 @@ const Todo = ({ name, id, handleComplete, deleteTodo, isDone, subTasks }) => {
             <BiShow onClick={() => setShowSubtasks(!showSubtasks)} />
           )}
 
-          <FaTrashAlt className="trash" onClick={() => setIsOpen(true)} />
+          <FaTrashAlt
+            className="trash"
+            onClick={() => setIsOpen(true)}
+            data-test-id="parentTrashIcon"
+          />
         </div>
       </div>
       {addNew && <TodoForm parent={id} subTasks={subTasks} />}
