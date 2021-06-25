@@ -35,5 +35,5 @@ jobs:
 workflows:
   build:
     jobs:
-      - cypress/run
+      # - cypress/run
       - build-and-test

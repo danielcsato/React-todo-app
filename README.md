@@ -1,55 +1,62 @@
+### `LIVE DEMO`
+
+[https://danitodos.netlify.app/](https://danitodos.netlify.app/)
+
 ### `npm i`
+
 ### `npm start`
+
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 ### `task 1`
-There should be a list of todos in the screen. 
 
+There should be a list of todos in the screen.
 
-A todo item should contain: 
+A todo item should contain:
 
-Checkbox : indicates if the todo is already done or not 
+Checkbox : indicates if the todo is already done or not
 
-Title: should be unique 
-Icon: to delete the todo 
+Title: should be unique
+Icon: to delete the todo
 
-Todo list should contain: 
-todo items 
-Input field on the bottom of the list where the user could add new todo items with that given name 
+Todo list should contain:
+todo items
+Input field on the bottom of the list where the user could add new todo items with that given name
 
- 
 ### 'task 2'
 
-A todo item could have sub-todo items. 
-After each sub-todo there should be the same logic to add new items like in Task 1. 
- 
-A sub-todo item should have 
+A todo item could have sub-todo items.
+After each sub-todo there should be the same logic to add new items like in Task 1.
 
-Checkbox : indicates if the todo is already done or not 
-Title: should be unique 
-Icon: to delete the todo 
+A sub-todo item should have
 
-Have a wrapper for each todo item. 
+Checkbox : indicates if the todo is already done or not
+Title: should be unique
+Icon: to delete the todo
 
-The todo item should check or uncheck the selection when clicked anywhere on the wrapper. 
- 
+Have a wrapper for each todo item.
 
-Business logic: 
-1. If the main todo item is clicked and changed to checked then all the sub-todo items should also be checked 
-2. If the main todo item is clicked and changed to unchecked then all the sub-todo items should also be unchecked 
-3. If all the sub-todo items are clicked and changed to checked then the main todo item should also be checked 
-4. If any of the sub-todo items are clicked and changed to unchecked then the main todo item should be unchecked 
-5. If the main todo item is removed then all the sub-todo items should also be removed 
-6. If any of the sub-todo items are removed then the main todo should reflect the actual checked state which means: -- If the removed sub-todo was unchecked and all the others were checked then the main todo will be checked  -- Otherwise there will be no change in the main todo 
-7. If either the todo or sub-todo items are checked then they should differ in color (up to the developer) 
+The todo item should check or uncheck the selection when clicked anywhere on the wrapper.
+
+Business logic:
+
+1. If the main todo item is clicked and changed to checked then all the sub-todo items should also be checked
+2. If the main todo item is clicked and changed to unchecked then all the sub-todo items should also be unchecked
+3. If all the sub-todo items are clicked and changed to checked then the main todo item should also be checked
+4. If any of the sub-todo items are clicked and changed to unchecked then the main todo item should be unchecked
+5. If the main todo item is removed then all the sub-todo items should also be removed
+6. If any of the sub-todo items are removed then the main todo should reflect the actual checked state which means: -- If the removed sub-todo was unchecked and all the others were checked then the main todo will be checked -- Otherwise there will be no change in the main todo
+7. If either the todo or sub-todo items are checked then they should differ in color (up to the developer)
 
 ### 'task 3'
-Sub-todos can be moved between main todos. 
 
-The same logic should apply to todos' checked state which was describes in task 2. 
+Sub-todos can be moved between main todos.
+
+The same logic should apply to todos' checked state which was describes in task 2.
 
 ### 'task 4'
-Todo application state should be stored in localstorage 
+
+Todo application state should be stored in localstorage
 
 OPTIONAL:  
-Application could use a relevant single shared store mechanism like Redux, ngRx, Vuex, etc. 
+Application could use a relevant single shared store mechanism like Redux, ngRx, Vuex, etc.

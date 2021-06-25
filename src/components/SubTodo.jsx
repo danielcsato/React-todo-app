@@ -35,7 +35,10 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
 
   return (
     <div className="todoHolder">
-      <div className={isDone ? 'subtodoMainDone' : 'subtodoMain'}>
+      <div
+        className={isDone ? 'subtodoMainDone' : 'subtodoMain'}
+        data-test-id="subTodoContainer"
+      >
         <div
           className={isDone ? 'checkboxDone' : 'checkbox'}
           onClick={() => handleSubTodoComplete(id, parentId)}
@@ -58,6 +61,7 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
             <HiOutlineFolderRemove
               onClick={() => setMove(true)}
               className="moveIcon"
+              data-test-id="moveTodoIcon"
             />
           ) : (
             <select
@@ -80,6 +84,7 @@ const SubTodo = ({ name, id, isDone, parentId }) => {
 
           <FaTrashAlt
             className="trash"
+            data-test-id="subtodoTrashIcon"
             onClick={() => handleSubTodoDelete(id, parentId, todos, setTodos)}
           />
         </div>

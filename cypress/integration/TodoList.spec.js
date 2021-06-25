@@ -1,94 +1,163 @@
 import {
   ADD_TODO_NAME_INPUT_SELECTOR,
   ADD_TODO_SUBMIT_BTN_SELECTOR,
-  ADD_SUBTODO_SUBMIT_BTN_SELECTOR,
-  SHOW_ADD_SUBTODO_INPUT_SELECTOR,
+  SHOW_ADD_SUBTODO_BTN_SELECTOR,
   SELECT_MOVE_SELECTOR,
-  PARENT_DONE_SELECTOR,
   RESET_BTN_SELECTOR,
+  LIST_SELECTOR,
+  PARENT_TODO_SELECTOR,
+  TODOLIST_CONTAINER_SELECTOR,
+  TODOLIST_UL_SELECTOR,
+  TODO_BODY_SELECTOR,
+  SUBTODO_MOVEICON_SELECTOR,
+  UNDO_BTN_SELECTOR,
+  DONE_BTN_SELECTOR,
+  SUBTODO_LI_SELECTOR,
+  TODO_TRASH_BTN_SELECTOR,
+  SUBTODO_TRASH_BTN_SELECTOR,
+  MODAL_TRASH_BTN_SELECTOR,
 } from './selectors';
 
-describe('Todo app test', () => {
-  const URL = 'https://danitodos.netlify.app/';
-  it('Visits the todo app and clears localstorage', () => {
+const URL = 'http://localhost:3000/';
+const mockTodoName1 = 'Sample todo 1';
+const mockTodoName2 = 'Sample todo 2';
+
+describe('Check rendering', () => {
+  it('Should go to the desrired URL and check if localstorage loads up', () => {
+    cy.visit(URL);
+    cy.get(LIST_SELECTOR).should('exist');
+    cy.url().should('eq', URL);
+  });
+});
+
+describe('Add new todo functionality', () => {
+  it('Adds a new todo', () => {
     cy.visit(URL);
     cy.get(RESET_BTN_SELECTOR).click();
-  });
-
-  it('Adds a new todo and completes it', () => {
-    cy.get(ADD_TODO_NAME_INPUT_SELECTOR).type('Test todo 1');
+    cy.get(LIST_SELECTOR).should('not.exist');
+    cy.get(ADD_TODO_NAME_INPUT_SELECTOR).type(mockTodoName1);
     cy.get(ADD_TODO_SUBMIT_BTN_SELECTOR).click();
-    cy.get(PARENT_DONE_SELECTOR).click();
+    cy.get(LIST_SELECTOR).should(($li) => {
+      expect($li).to.have.length(1);
+    });
   });
-
-  it('Adds 3 subtask below the parent task', () => {
-    cy.get(SHOW_ADD_SUBTODO_INPUT_SELECTOR).click();
-    cy.get(ADD_SUBTODO_SUBMIT_BTN_SELECTOR).type('Test subtodo 1{enter}');
-    cy.get(ADD_SUBTODO_SUBMIT_BTN_SELECTOR).type('Test subtodo 2{enter}');
-    cy.get(ADD_SUBTODO_SUBMIT_BTN_SELECTOR).type('Test subtodo 3{enter}');
-    cy.get(SHOW_ADD_SUBTODO_INPUT_SELECTOR).click();
+  it('Adds 3 subtask', () => {
+    cy.get(SUBTODO_LI_SELECTOR).should('not.exist');
+    cy.get(SHOW_ADD_SUBTODO_BTN_SELECTOR).click();
+    cy.get(ADD_TODO_NAME_INPUT_SELECTOR).first().type('Test subtodo 1{enter}');
+    cy.get(ADD_TODO_NAME_INPUT_SELECTOR).first().type('Test subtodo 2{enter}');
+    cy.get(ADD_TODO_NAME_INPUT_SELECTOR).first().type('Test subtodo 3{enter}');
+    cy.get(SHOW_ADD_SUBTODO_BTN_SELECTOR).click();
+    cy.get(TODO_BODY_SELECTOR).contains(`${mockTodoName1} (3)`);
+    cy.get(TODOLIST_UL_SELECTOR)
+      .first()
+      .find(SUBTODO_LI_SELECTOR)
+      .should(($li) => {
+        expect($li).to.have.length(3);
+      });
   });
+});
 
-  it('Completes the subtasks', () => {
-    cy.get(
-      ':nth-child(1) > .todoHolder > .subtodoMain > .checkbox > .done'
-    ).click();
-    cy.get(
-      ':nth-child(2) > .todoHolder > .subtodoMain > .checkbox > .done'
-    ).click();
+describe('Move functionality', () => {
+  it('Moves a subtask', () => {
+    cy.visit(URL);
+    cy.get(SUBTODO_MOVEICON_SELECTOR).first().click();
+    cy.get(SELECT_MOVE_SELECTOR).select('Sample todo 2');
 
-    cy.get(
-      ':nth-child(3) > .todoHolder > .subtodoMain > .checkbox > .done'
-    ).click();
+    cy.get(PARENT_TODO_SELECTOR).first().contains(`${mockTodoName1} (1)`);
+    cy.get(TODOLIST_UL_SELECTOR)
+      .first()
+      .find(SUBTODO_LI_SELECTOR)
+      .should(($li) => {
+        expect($li).to.have.length(1);
+      });
+
+    cy.get(PARENT_TODO_SELECTOR).eq(1).contains(`${mockTodoName2} (2)`);
+    cy.get(TODOLIST_UL_SELECTOR)
+      .eq(1)
+      .find(SUBTODO_LI_SELECTOR)
+      .should(($li) => {
+        expect($li).to.have.length(2);
+      });
   });
+});
 
-  it('Adds another parent task', () => {
-    cy.get(ADD_TODO_NAME_INPUT_SELECTOR).type('Test todo 2');
-    cy.get(ADD_TODO_SUBMIT_BTN_SELECTOR).click();
-  });
-
-  it('Moves a subtask to the newly created parent task ', () => {
-    cy.get(
-      ':nth-child(1) > .todoHolder > .subtodoMainDone > .icons > .moveIcon'
-    ).click();
-    cy.get(SELECT_MOVE_SELECTOR).select('Test todo 2');
-  });
-  it('Checks the length of the original parent after moving subtodo', () => {
-    cy.get(
-      ':nth-child(1) > :nth-child(1) > .todoMainDone > #title > p'
-    ).contains('(2)');
-  });
-
-  it('Checks the length of the new parent after moving subtodo', () => {
-    cy.get(
-      ':nth-child(2) > :nth-child(1) > .todoMainDone > #title > p'
-    ).contains('(1)');
-  });
-
-  it('Creates a new subtodo to the first parent todo', () => {
-    cy.get(
-      ':nth-child(1) > :nth-child(1) > .todoMainDone > .icons > .showSubs > svg'
-    ).click();
-    cy.get('.todoFormSub > form > .todoName').type('Test subtodo 4{enter}');
-    cy.get('.todoMain > .icons > .showSubs > svg').click();
-  });
-
+describe('Delete functionality', () => {
   it('Checks if first todo is not completed', () => {
-    cy.get('.todoMain > .checkbox > .done').should('have.class', 'done');
+    cy.visit(URL);
+    cy.get(PARENT_TODO_SELECTOR)
+      .first()
+      .children()
+      .should('have.class', 'checkbox');
   });
 
-  it('Deletes the latest subtodo', () => {
-    cy.get('.subtodoMain > .icons > .trash').click();
+  it('Deletes the latest subtodo and check if parent is done', () => {
+    cy.get(SUBTODO_TRASH_BTN_SELECTOR).first().click();
+    cy.get(TODOLIST_CONTAINER_SELECTOR).contains(`${mockTodoName1} (1)`);
+    cy.get(PARENT_TODO_SELECTOR)
+      .first()
+      .children()
+      .should('have.class', 'checkboxDone');
+    cy.get(TODOLIST_CONTAINER_SELECTOR).should(($li) => {
+      expect($li).to.have.length(1);
+    });
   });
 
-  it('Checks if first todo is completed', () => {
-    cy.get(
-      ':nth-child(1) > :nth-child(1) > .todoMainDone > .checkboxDone > .Undo'
-    ).should('have.class', 'Undo');
+  it('Deletes the first parent todo', () => {
+    cy.get(TODO_TRASH_BTN_SELECTOR).first().click();
+    cy.get(MODAL_TRASH_BTN_SELECTOR).click();
+    cy.get(LIST_SELECTOR).should(($li) => {
+      expect($li).to.have.length(1);
+    });
   });
-  it('Checks the length of the parent after deleting subtodo', () => {
-    cy.get(
-      ':nth-child(1) > :nth-child(1) > .todoMainDone > #title > p'
-    ).contains('(2)');
+});
+
+describe('Complete functionality', () => {
+  it('Completes a subtask', () => {
+    cy.visit(URL);
+    cy.get(PARENT_TODO_SELECTOR)
+      .first()
+      .children()
+      .should('have.class', 'checkbox');
+    cy.get(SUBTODO_LI_SELECTOR).eq(0).click();
+  });
+  it('Check if parent is completed after', () => {
+    cy.get(DONE_BTN_SELECTOR).should('not.exist');
+  });
+  it('Completes a parent task', () => {
+    cy.visit(URL);
+    cy.get(UNDO_BTN_SELECTOR).first().click();
+    cy.get(PARENT_TODO_SELECTOR)
+      .first()
+      .children()
+      .should('have.class', 'checkbox');
+  });
+  it('Check if subtodos are completed after', () => {
+    cy.get(UNDO_BTN_SELECTOR).should('not.exist');
+  });
+});
+
+describe('Uncomplete functionality', () => {
+  it('Uncompletes a subtask', () => {
+    cy.visit(URL);
+    cy.get(PARENT_TODO_SELECTOR)
+      .first()
+      .children()
+      .should('have.class', 'checkbox');
+    cy.get(SUBTODO_LI_SELECTOR).eq(0).click();
+  });
+  it('Check if parent is uncompleted after', () => {
+    cy.get(UNDO_BTN_SELECTOR).should('exist');
+  });
+  it('Uncompletes a parent task', () => {
+    cy.visit(URL);
+    cy.get(UNDO_BTN_SELECTOR).first().click();
+    cy.get(PARENT_TODO_SELECTOR)
+      .first()
+      .children()
+      .should('have.class', 'checkbox');
+  });
+  it('Check if subtodos are uncompleted after', () => {
+    cy.get(UNDO_BTN_SELECTOR).should('not.exist');
   });
 });

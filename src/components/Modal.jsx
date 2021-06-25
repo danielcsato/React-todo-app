@@ -12,7 +12,7 @@ const Modal = ({ setIsOpen, deleteTodo }) => {
           <button className="modalKeep" onClick={() => setIsOpen(false)}>
             Keep
           </button>
-          <button className="modalDelete" onClick={deleteTodo}>
+          <button className="modalDelete" onClick={deleteTodo} data-test-id="confirmTrashBtn">
             Delete
           </button>
         </div>

@@ -23,7 +23,10 @@ const Todo = ({ name, id, handleComplete, deleteTodo, isDone, subTasks }) => {
           deleteTodo={() => deleteTodo(id, setIsOpen)}
         />
       )}
-      <div className={isDone ? 'todoMainDone' : 'todoMain'}>
+      <div
+        className={isDone ? 'todoMainDone' : 'todoMain'}
+        data-test-id="parentTodoContainer"
+      >
         <div
           className={isDone ? 'checkboxDone' : 'checkbox'}
           onClick={() => handleComplete(id)}
@@ -42,9 +45,15 @@ const Todo = ({ name, id, handleComplete, deleteTodo, isDone, subTasks }) => {
         <div className="icons">
           <div className="showSubs">
             {addNew ? (
-              <FiMinus onClick={() => setAddNew(!addNew)} />
+              <FiMinus
+                onClick={() => setAddNew(!addNew)}
+                data-test-id="addNewSubTodoMinusIcon"
+              />
             ) : (
-              <FiPlus onClick={() => setAddNew(!addNew)} />
+              <FiPlus
+                onClick={() => setAddNew(!addNew)}
+                data-test-id="addNewSubTodoIcon"
+              />
             )}
           </div>
           {showSubtasks ? (
@@ -53,7 +62,11 @@ const Todo = ({ name, id, handleComplete, deleteTodo, isDone, subTasks }) => {
             <BiShow onClick={() => setShowSubtasks(!showSubtasks)} />
           )}
 
-          <FaTrashAlt className="trash" onClick={() => setIsOpen(true)} />
+          <FaTrashAlt
+            className="trash"
+            onClick={() => setIsOpen(true)}
+            data-test-id="parentTrashIcon"
+          />
         </div>
       </div>
       {addNew && <TodoForm parent={id} subTasks={subTasks} />}
@@ -61,10 +74,10 @@ const Todo = ({ name, id, handleComplete, deleteTodo, isDone, subTasks }) => {
         <div>
           {subTasks.length > 0 && (
             <div>
-              <ul>
+              <ul data-test-id="subtodoUl">
                 {subTasks.map((sub) => {
                   return (
-                    <li key={sub.id}>
+                    <li key={sub.id} data-test-id="subtodoLi">
                       <SubTodo
                         name={sub.title}
                         id={sub.id}
